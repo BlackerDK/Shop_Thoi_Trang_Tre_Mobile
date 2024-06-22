@@ -60,7 +60,6 @@ public class Product implements Serializable {
     public String getProductCategory() {
         return productCategory;
     }
-
     public void setProductCategory(String productCategory) {
         this.productCategory = productCategory;
     }
