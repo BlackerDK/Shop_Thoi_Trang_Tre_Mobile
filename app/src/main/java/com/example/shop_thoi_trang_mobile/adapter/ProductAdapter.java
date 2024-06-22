@@ -1,13 +1,10 @@
-package com.example.shop_thoi_trang_mobile.activity;
+package com.example.shop_thoi_trang_mobile.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shop_thoi_trang_mobile.R;
@@ -43,7 +40,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.productName.setText(product.getProductName());
-        holder.productPrice.setText(product.getProductPrice().toString());
+        holder.productPrice.setText("$ "+product.getProductPrice().toString());
         int imageResId = holder.itemView.getContext().getResources().getIdentifier(product.getProductImage(), "drawable", holder.itemView.getContext().getPackageName());
         holder.productImage.setImageResource(imageResId);
         holder.bind(product, listener);

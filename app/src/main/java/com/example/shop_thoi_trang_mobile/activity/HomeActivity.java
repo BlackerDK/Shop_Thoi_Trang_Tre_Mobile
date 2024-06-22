@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shop_thoi_trang_mobile.R;
+import com.example.shop_thoi_trang_mobile.adapter.ProductAdapter;
 import com.example.shop_thoi_trang_mobile.model.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.MenuItem;
