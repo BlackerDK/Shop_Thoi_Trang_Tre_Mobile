@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Shop_Thoi_Trang_Mobile</string>
+    <string name="btn_SignIn">SIGN IN</string>
+    <string name="btn_SignUp">SIGN UP</string>
+    <string name="tv_SignIn">LOGIN</string>
+    <string name="tv_SignUp">REGISTER</string>
+    <string name="tv_NotYet">Not Account Yet? Create one</string>
+    <string name="tv_forgot">Do you forgot passwords ?</string>
+    <string name="tv_Already">Already Account? Sign in</string>
+    <string name="ev_UserName">Enter Username</string>
+    <string name="ev_Password">Enter Password</string>
+    <string name="ev_ConfirmPassword">Confirm Password</string>
+    <string name="tv_or">-----------OR----------</string>
 </resources>
