@@ -63,16 +63,33 @@ public class HomeActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
             // Set up bottom navigation
-            BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()) {
-                    }
-                    return false;
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = null;
+                if (item.getItemId() == R.id.nav_home) {
+                    // Chuyển sang activity Home (ví dụ)
+                    intent = new Intent(HomeActivity.this, HomeActivity.class);
+                } else if (item.getItemId() == R.id.nav_cart) {
+                    // Chuyển sang activity Category (ví dụ)
+                    intent = new Intent(HomeActivity.this, HomeActivity.class);
+                } else if (item.getItemId() == R.id.nav_noti) {
+                    // Chuyển sang activity Cart (ví dụ)
+                    intent = new Intent(HomeActivity.this, HomeActivity.class);
+                } else if (item.getItemId() == R.id.nav_profile) {
+                    // Chuyển sang activity Profile (ví dụ)
+                    intent = new Intent(HomeActivity.this, HomeActivity.class);
                 }
-            });
-        }
+                if (intent != null) {
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+    }
 
     private void filterList(String newText) {
         List<Product> filterList = new ArrayList<>();

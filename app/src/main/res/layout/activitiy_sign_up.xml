@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/signUp"
-    android:background="#DAEAF3"
-    android:padding="4dp">
+    android:background="@color/back_ground_primary"
+    android:padding="4dp"
+    >
 
     <TextView
         android:id="@+id/tv_login"
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/tv_SignUp"
-        android:textColor="#B34C75"
+        android:textColor="@color/accent_orange"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -76,7 +77,7 @@
         android:id="@+id/btnSignUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#303F9F"
+        android:backgroundTint="@color/btn_primary"
         android:text="@string/btn_SignUp"
         app:cornerRadius="8dp"
         app:layout_constraintTop_toBottomOf="@id/txtConfirmPassword"

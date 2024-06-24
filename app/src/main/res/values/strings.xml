@@ -10,5 +10,6 @@
     <string name="ev_UserName">Enter Username</string>
     <string name="ev_Password">Enter Password</string>
     <string name="ev_ConfirmPassword">Confirm Password</string>
-    <string name="tv_or">-----------OR----------</string>
+    <string name="btn_addcart">Add to cart</string>
+    <string name="btn_buynow">Buy now</string>
 </resources>

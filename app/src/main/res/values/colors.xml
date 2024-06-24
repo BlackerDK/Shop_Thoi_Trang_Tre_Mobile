@@ -2,5 +2,31 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="bottom_nav_color">#FF6200EE</color>
+    <color name="back_ground_primary">#ADD8E6</color>
+    <color name="back_ground_secondary">#FF69B4</color>
+
+    <!-- Button Colors -->
+    <color name="btn_primary">#1E90FF</color>
+    <color name="btn_primary_text">#FFFFFF</color>
+    <color name="btn_secondary">#FFFFFF</color>
+    <color name="btn_secondary_text_black">#000000</color>
+    <color name="btn_secondary_text_gray">#D3D3D3</color>
+
+    <!-- Button Border Colors -->
+    <color name="btn_border_navy">#000080</color>
+    <color name="btn_border_pink">#FFB6C1</color>
+
+    <!-- Accent Colors -->
+    <color name="accent_orange">#FFA500</color>
+    <color name="accent_light_purple">#9370DB</color>
+    <!-- Text Colors -->
+    <color name="text_on_pink">#000000</color>
+    <color name="text_on_pink_alt">#FFFFFF</color>
+    <color name="text_on_blue_light">#000000</color>
+    <color name="text_on_blue_light_alt">#1E90FF</color>
+    <!-- Button Specific Colors -->
+    <color name="btn_buy_now">#1E90FF</color>
+    <color name="btn_buy_now_border">#000080</color>
+    <color name="btn_add_to_cart">#FFA500</color>
+    <color name="btn_add_to_cart_border">#FF4500</color>
 </resources>

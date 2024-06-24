@@ -5,8 +5,13 @@ package com.example.shop_thoi_trang_mobile.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -14,7 +19,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.model.Product;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+
 public class ProductDetailsActivity extends AppCompatActivity {
 
     private ImageView productImage;
@@ -23,42 +32,53 @@ public class ProductDetailsActivity extends AppCompatActivity {
     private TextView productBrand;
     private TextView productPrice;
     private TextView productDescription;
+    private Button btnAddtoCart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
-        super.setContentView(R.layout.activity_product_details); // Gọi rõ ràng từ lớp cha
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        // Enable the Up button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        // Handle navigation click event
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
         productImage = findViewById(R.id.product_image);
         productName = findViewById(R.id.product_name);
         productCategory = findViewById(R.id.product_category);
         productBrand = findViewById(R.id.product_brand);
         productPrice = findViewById(R.id.product_price);
-        productDescription = findViewById(R.id.product_description);
-
-        // Nhận đối tượng Product từ Intent
         Intent intent = getIntent();
-        Product product = (Product) intent.getSerializableExtra("product");
+        final Product product = (Product) intent.getSerializableExtra("product");
 
         if (product != null) {
             int imageResId = getResources().getIdentifier(product.getProductImage(), "drawable", getPackageName());
-            // Thiết lập hình ảnh cho ImageView
             productImage.setImageResource(imageResId);
             productName.setText(product.getProductName());
             productCategory.setText("Category: " + product.getProductCategory());
             productBrand.setText("Brand: " + product.getProductBrand());
             productPrice.setText("$" + product.getProductPrice());
-            productDescription.setText(product.getProductDescription());
         }
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = null;
+                if (item.getItemId() == R.id.nav_home) {
+                    // Chuyển sang activity Home (ví dụ)
+                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
+                } else if (item.getItemId() == R.id.nav_cart) {
+                    // Chuyển sang activity Category (ví dụ)
+                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
+                } else if (item.getItemId() == R.id.nav_noti) {
+                    // Chuyển sang activity Cart (ví dụ)
+                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
+                } else if (item.getItemId() == R.id.nav_profile) {
+                    // Chuyển sang activity Profile (ví dụ)
+                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
+                }
+                if (intent != null) {
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
