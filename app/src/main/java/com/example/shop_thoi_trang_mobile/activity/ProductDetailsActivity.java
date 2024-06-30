@@ -19,73 +19,71 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.model.Product;
+import com.example.shop_thoi_trang_mobile.model.ProductResponse;
+import com.example.shop_thoi_trang_mobile.networking.ProductService;
+import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductDetailsActivity extends AppCompatActivity {
-
     private ImageView productImage;
     private TextView productName;
     private TextView productCategory;
     private TextView productBrand;
     private TextView productPrice;
-    private TextView productDescription;
-    private Button btnAddtoCart;
+    private ProductService productService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
+
         productImage = findViewById(R.id.product_image);
         productName = findViewById(R.id.product_name);
         productCategory = findViewById(R.id.product_category);
         productBrand = findViewById(R.id.product_brand);
         productPrice = findViewById(R.id.product_price);
-        Intent intent = getIntent();
-        final Product product = (Product) intent.getSerializableExtra("product");
 
-        if (product != null) {
-            int imageResId = getResources().getIdentifier(product.getProductImage(), "drawable", getPackageName());
-            productImage.setImageResource(imageResId);
-            productName.setText(product.getProductName());
-            productCategory.setText("Category: " + product.getProductCategory());
-            productBrand.setText("Brand: " + product.getProductBrand());
-            productPrice.setText("$" + product.getProductPrice());
+        Intent intent = getIntent();
+        int productId = intent.getIntExtra("productId", -1);
+
+        if (productId != -1) {
+            productService = RetrofitClient.getRetrofitInstance().create(ProductService.class);
+            fetchProductDetails(productId);
         }
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+    }
+
+    private void fetchProductDetails(int productId) {
+        Call<ProductResponse> call = productService.getAllProduct(); // Assuming the API returns all products
+        call.enqueue(new Callback<ProductResponse>() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent = null;
-                if (item.getItemId() == R.id.nav_home) {
-                    // Chuyển sang activity Home (ví dụ)
-                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
-                } else if (item.getItemId() == R.id.nav_cart) {
-                    // Chuyển sang activity Category (ví dụ)
-                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
-                } else if (item.getItemId() == R.id.nav_noti) {
-                    // Chuyển sang activity Cart (ví dụ)
-                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
-                } else if (item.getItemId() == R.id.nav_profile) {
-                    // Chuyển sang activity Profile (ví dụ)
-                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Product> products = response.body().getResult();
+                    for (Product product : products) {
+                        if (product.getProductId() == productId) {
+                            // Found the product, update UI
+                            Picasso.get().load(product.getProductImage()).into(productImage);
+                            productName.setText(product.getProductName());
+                            productCategory.setText("Category: " + product.getProductCategory());
+                            productBrand.setText("Brand: " + product.getProductBrand());
+                            productPrice.setText("$" + product.getProductPrice());
+                            break;
+                        }
+                    }
                 }
-                if (intent != null) {
-                    startActivity(intent);
-                    return true;
-                }
-                return false;
+            }
+            @Override
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
+                t.printStackTrace();
             }
         });
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

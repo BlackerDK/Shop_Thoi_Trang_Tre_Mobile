@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public class Product implements Serializable {
+public class Product{
     private int productId;
     private String productName;
     private String productCode;
@@ -16,22 +17,7 @@ public class Product implements Serializable {
     private String productDescription;
     private String productImage;
     private String productStatus;
-
-    public Product(int productId, String productName, String productCode, String productCategory, String productBrand,
-                   BigDecimal productPrice, int productQuantity, String productDescription, String productImage, String productStatus) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productCode = productCode;
-        this.productCategory = productCategory;
-        this.productBrand = productBrand;
-        this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
-        this.productDescription = productDescription;
-        this.productImage = productImage;
-        this.productStatus = productStatus;
-    }
-
-    // Getters and setters for each field
+    private List<Object> orderItems;
 
     public int getProductId() {
         return productId;
@@ -60,6 +46,7 @@ public class Product implements Serializable {
     public String getProductCategory() {
         return productCategory;
     }
+
     public void setProductCategory(String productCategory) {
         this.productCategory = productCategory;
     }
@@ -110,6 +97,14 @@ public class Product implements Serializable {
 
     public void setProductStatus(String productStatus) {
         this.productStatus = productStatus;
+    }
+
+    public List<Object> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<Object> orderItems) {
+        this.orderItems = orderItems;
     }
 }
 
