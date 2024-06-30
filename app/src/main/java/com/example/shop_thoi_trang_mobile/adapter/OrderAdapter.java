@@ -4,10 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,6 +46,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.tvOrderDate.setText("Date: " + DateToString(order.getOrderDate()));
         holder.tvOrderQuantity.setText("Quantity: " + order.getQuantity());
         holder.tvOrderTotal.setText("Total Amount: " + order.getOrderTotalAmount());
+        holder.tvOrderStatus.setText("Status: " + order.getOrderStatus());
+        holder.tvOrderStatus.setTextColor(getStatusColor(order.getOrderStatus()));
 
         holder.tvFullName.setText("Full Name: " + order.getFullName());
         holder.tvPhoneNumber.setText("Phone Number: " + order.getPhoneNumber());
@@ -58,10 +62,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             TextView tvItemPrice = itemView.findViewById(R.id.tvItemPrice);
             TextView tvItemTotal = itemView.findViewById(R.id.tvItemTotal);
             TextView tvItemQuantity = itemView.findViewById(R.id.tvItemQuantity);
-
             tvItemName.setText(item.getName());
             tvItemPrice.setText("Price: " + item.getPrice());
-            tvItemTotal.setText("Total: " + item.getQuantity()*item.getPrice().intValue());
+            tvItemTotal.setText("Total: " + item.getQuantity() * item.getPrice().intValue());
             tvItemQuantity.setText("Quantity: " + item.getQuantity());
 
             holder.itemContainer.addView(itemView);
@@ -72,9 +75,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             public void onClick(View v) {
                 if (holder.orderDetails.getVisibility() == View.GONE) {
                     holder.orderDetails.setVisibility(View.VISIBLE);
+                    holder.orderDetails.startAnimation(AnimationUtils.loadAnimation(context, R.anim.expand_collapse));
                     holder.btnToggle.setImageResource(R.drawable.collapse);
                 } else {
                     holder.orderDetails.setVisibility(View.GONE);
+                    holder.orderDetails.startAnimation(AnimationUtils.loadAnimation(context, R.anim.expand_collapse));
                     holder.btnToggle.setImageResource(R.drawable.expand);
                 }
             }
@@ -88,7 +93,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     static class OrderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvOrderId, tvOrderDate, tvOrderQuantity, tvOrderTotal;
+        TextView tvOrderId, tvOrderDate, tvOrderQuantity, tvOrderTotal, tvOrderStatus;
         TextView tvFullName, tvPhoneNumber, tvShippingAddress;
         ImageView btnToggle;
         LinearLayout itemContainer;
@@ -104,6 +109,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
             orderHeader = itemView.findViewById(R.id.orderHeader);
             orderDetails = itemView.findViewById(R.id.orderDetails);
             btnToggle = itemView.findViewById(R.id.btnToggle);
+            tvOrderStatus = itemView.findViewById(R.id.tvOrderStatus);
 
             itemContainer = itemView.findViewById(R.id.itemContainer);
             tvFullName = itemView.findViewById(R.id.tvFullName);
@@ -116,4 +122,22 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(date);
     }
+
+    private int getStatusColor(String status) {
+        switch (status) {
+            case "Delivered":
+                return context.getResources().getColor(R.color.green);
+            case "In Transit":
+                return context.getResources().getColor(R.color.orange);
+            case "Canceled":
+                return context.getResources().getColor(R.color.red);
+            default:
+                return context.getResources().getColor(R.color.black);
+        }
+    }
+    public void addOrders(List<Order> newOrders) {
+        orders.addAll(newOrders);
+        notifyItemRangeInserted(orders.size() - newOrders.size(), newOrders.size());
+    }
+
 }
