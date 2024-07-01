@@ -1,153 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ProductDetailsActivity"
-    >
-    <!-- Product Image -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#73C1EC"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="Product Details"
-        app:titleTextColor="@color/white" />
+    android:background="@color/back_ground_primary"
+    android:fillViewport="true"
+    tools:context=".activity.ProductDetailsActivity">
 
-    <ImageView
-        android:id="@+id/product_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingTop="?attr/actionBarSize"
-        android:scaleType="fitCenter"
-        app:layout_constraintDimensionRatio="1.5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        tools:srcCompat="@tools:sample/avatars"
-        />
-
-    <!-- Product Name -->
-    <TextView
-        android:id="@+id/product_name"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/product_image"
-        tools:text="Product Name"
-        android:paddingLeft="10dp"
-        />
+        tools:layout_editor_absoluteX="7dp"
+        tools:layout_editor_absoluteY="7dp">
+        <ImageView
+            android:id="@+id/product_image"
+            android:layout_width="300dp"
+            android:layout_height="0dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintDimensionRatio="1.5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/product_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:srcCompat="@drawable/sample_product" />
 
-    <!-- Product Category -->
-    <TextView
-        android:id="@+id/product_category"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        android:textColor="?attr/colorSecondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/product_name"
-        tools:text="Category: Electronics"
-        android:paddingLeft="10dp"
-        />
+        <TextView
+            android:id="@+id/product_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="10dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/product_image"
+            tools:text="Product Name" />
 
-    <!-- Product Brand -->
-    <TextView
-        android:id="@+id/product_brand"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        android:textColor="?attr/colorSecondary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/product_category"
-        tools:text="Brand: BrandName"
-        android:paddingLeft="10dp"
-        />
+        <!-- Product Category -->
+        <TextView
+            android:id="@+id/product_category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="10dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="?attr/colorSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/product_name"
+            tools:text="Category: Electronics" />
 
-    <!-- Product Price -->
-    <TextView
-        android:id="@+id/product_price"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        android:textColor="#4398C6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/product_brand"
-        tools:text="$199.99"
-        android:paddingLeft="10dp"
-        />
+        <!-- Product Brand -->
+        <TextView
+            android:id="@+id/product_brand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="10dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textColor="?attr/colorSecondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/product_category"
+            tools:text="Brand: BrandName" />
 
-    <!-- Product Description Label -->
-    <TextView
-        android:id="@+id/product_description_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Description"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/product_price"
-        android:paddingLeft="10dp"
-        />
+        <!-- Product Price -->
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="10dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="#4398C6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/product_brand"
+            tools:text="$199.99" />
 
-    <!-- Product Description -->
-    <TextView
-        android:id="@+id/product_description"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/product_description_label"
-        tools:text="This is a detailed description of the product"
-        android:paddingLeft="10dp"
-        />
+        <!-- Buttons: Add to Cart & Buy Now -->
+        <Button
+            android:id="@+id/btnAddToCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="#D32F2F"
+            android:text="@string/btn_addcart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnBuyNow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/product_price"
+            app:layout_constraintVertical_bias="0.145" />
 
-    <Button
-        android:id="@+id/btnAddToCart"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        android:layout_weight="1"
-        android:backgroundTint="#D32F2F"
-        android:text="Thêm vào giỏ hàng"
-        app:cornerRadius="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnBuyNow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/product_description" />
+        <Button
+            android:id="@+id/btnBuyNow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#0288D1"
+            android:text="@string/btn_buynow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnAddToCart"
+            app:layout_constraintTop_toBottomOf="@id/product_price"
+            app:layout_constraintVertical_bias="0.145" />
 
-    <Button
-        android:id="@+id/btnBuyNow"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="4dp"
-        android:layout_weight="1"
-        android:backgroundTint="#0288D1"
-        android:text="Mua ngay"
-        app:cornerRadius="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnAddToCart"
-        app:layout_constraintTop_toBottomOf="@id/product_description" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_navigation_menu" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
