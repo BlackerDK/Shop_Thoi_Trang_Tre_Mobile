@@ -15,7 +15,7 @@
 
         <!-- Item Image -->
         <ImageView
-            android:id="@+id/iv_item_image"
+            android:id="@+id/tv_item_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:text="Item Name"
             android:textSize="18sp"
-            android:layout_toEndOf="@id/iv_item_image"
+            android:textStyle="bold"
+            android:layout_toEndOf="@id/tv_item_image"
             android:layout_marginStart="16dp"
             android:layout_alignParentTop="true" />
 
@@ -41,7 +42,7 @@
             android:text="2 * $8.99"
             android:textSize="16sp"
             android:layout_below="@id/tv_item_name"
-            android:layout_toEndOf="@id/iv_item_image"
+            android:layout_toEndOf="@id/tv_item_image"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp" />
 
@@ -64,6 +65,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_alignParentEnd="true"
+            android:gravity="center"
             android:layout_below="@id/tv_item_total_price"
             android:layout_marginTop="16dp">
 
@@ -78,18 +80,17 @@
                 android:id="@+id/tv_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2"
-                android:textSize="16sp"
-                android:gravity="center"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:text="2"
+                android:textSize="16sp" />
 
             <ImageButton
                 android:id="@+id/btn_increase_quantity"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/plus"
-                android:src="@android:drawable/ic_media_next"
                 android:contentDescription="Increase Quantity" />
         </LinearLayout>
     </RelativeLayout>
