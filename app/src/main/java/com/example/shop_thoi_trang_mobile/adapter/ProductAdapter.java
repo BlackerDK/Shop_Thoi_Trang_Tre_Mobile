@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.model.Product;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -23,7 +24,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.productList = filterList;
         notifyDataSetChanged();
     }
-
     public ProductAdapter(List<Product> productList, OnItemClickListener listener) {
         this.productList = productList;
         this.listener = listener;
@@ -40,10 +40,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
         holder.productName.setText(product.getProductName());
-        holder.productPrice.setText("$ "+product.getProductPrice().toString());
-        int imageResId = holder.itemView.getContext().getResources().getIdentifier(product.getProductImage(), "drawable", holder.itemView.getContext().getPackageName());
-        holder.productImage.setImageResource(imageResId);
-        holder.bind(product, listener);
+        holder.productPrice.setText(product.getProductPrice().toString());
+        Picasso.get().load(product.getProductImage()).into(holder.productImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(product);
+                }
+            }
+        });
     }
 
     @Override
