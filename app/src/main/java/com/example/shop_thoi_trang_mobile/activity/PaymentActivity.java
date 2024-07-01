@@ -1,2 +1,6 @@
-package com.example.shop_thoi_trang_mobile.activity;public class PaymentActivity {
+package com.example.shop_thoi_trang_mobile.activity;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class PaymentActivity extends AppCompatActivity {
 }
