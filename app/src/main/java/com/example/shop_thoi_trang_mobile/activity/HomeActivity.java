@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity {
                     intent = new Intent(HomeActivity.this, HomeActivity.class);
                 } else if (item.getItemId() == R.id.nav_cart) {
                     // Chuyển sang activity Category (ví dụ)
-                    intent = new Intent(HomeActivity.this, HomeActivity.class);
+                    intent = new Intent(HomeActivity.this, CartActivity.class);
                 } else if (item.getItemId() == R.id.nav_noti) {
                     // Chuyển sang activity Cart (ví dụ)
                     intent = new Intent(HomeActivity.this, HomeActivity.class);

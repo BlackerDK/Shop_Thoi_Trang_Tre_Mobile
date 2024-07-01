@@ -8,9 +8,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface ProductService {
-    String PRODUCT = "Product";
+    final String PRODUCT = "Product";
+    final String PRODUCT_BY_ID = "Product/{id}";
     @GET(PRODUCT)
     Call<ProductResponse> getAllProduct();
-    @GET(PRODUCT+"/{id}")
+    @GET(PRODUCT_BY_ID)
     Call<ProductResponse> getProductById(@Path("id") int id);
 }
