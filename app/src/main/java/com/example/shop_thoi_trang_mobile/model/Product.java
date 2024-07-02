@@ -103,6 +103,18 @@ public class Product{
         return orderItems;
     }
 
+    public Product(int productId, String productName, String productCode, String productCategory, String productBrand, BigDecimal productPrice, int productQuantity, String productDescription, String productImage) {
+        this.productId = productId;
+        this.productName = productName;
+        this.productCode = productCode;
+        this.productCategory = productCategory;
+        this.productBrand = productBrand;
+        this.productPrice = productPrice;
+        this.productQuantity = productQuantity;
+        this.productDescription = productDescription;
+        this.productImage = productImage;
+    }
+
     public void setOrderItems(List<Object> orderItems) {
         this.orderItems = orderItems;
     }
