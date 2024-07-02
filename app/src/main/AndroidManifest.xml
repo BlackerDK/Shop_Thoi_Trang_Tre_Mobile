@@ -32,5 +32,7 @@
         </activity>
         <activity android:name=".activity.MainActivity"></activity>
         <activity android:name=".activity.CartActivity"></activity>
+        <activity android:name=".activity.UserEditProfileActivity"></activity>
+        <activity android:name=".activity.UserProfileActivity"></activity>
     </application>
 </manifest>
