@@ -32,7 +32,7 @@ import retrofit2.Response;
 
 public class ProductDetailsActivity extends AppCompatActivity {
     private ImageView productImage;
-    private TextView productName, productCategory, productBrand, productPrice;
+    private TextView productName, productCategory, productBrand, productPrice,productDes;
 
     private ProductService productService;
     private Button addToCartButton;
@@ -48,6 +48,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productCategory = findViewById(R.id.product_category);
         productBrand = findViewById(R.id.product_brand);
         productPrice = findViewById(R.id.product_price);
+        productDes = findViewById(R.id.product_des);
         addToCartButton = findViewById(R.id.btnAddToCart);
 
         // Bottom navigation
@@ -122,6 +123,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             productCategory.setText("Category: " + product.getProductCategory());
                             productBrand.setText("Brand: " + product.getProductBrand());
                             productPrice.setText("$" + product.getProductPrice());
+                            productDes.setText(""+product.getProductDescription());
                             break;
                         }
                     }
