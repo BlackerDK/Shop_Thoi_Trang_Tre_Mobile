@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shop_thoi_trang_mobile.R;
@@ -20,7 +19,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +70,7 @@ public class HomeActivity extends AppCompatActivity {
 
             // Set up bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -87,7 +86,7 @@ public class HomeActivity extends AppCompatActivity {
                     intent = new Intent(HomeActivity.this, HomeActivity.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
                     // Chuyển sang activity Profile (ví dụ)
-                    intent = new Intent(HomeActivity.this, HomeActivity.class);
+                    intent = new Intent(HomeActivity.this, UserProfileActivity.class);
                 }
                 if (intent != null) {
                     startActivity(intent);

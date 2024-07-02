@@ -13,9 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.model.CartItem;
@@ -27,7 +24,6 @@ import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -71,7 +67,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
                     // Chuyển sang activity Profile (ví dụ)
-                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
+                    intent = new Intent(ProductDetailsActivity.this, UserProfileActivity.class);
                 }
                 if (intent != null) {
                     startActivity(intent);
@@ -80,7 +76,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 return false;
             }
         });
-
 
         Intent intent = getIntent();
         int productId = intent.getIntExtra("productId", -1);
