@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="Young Fashion Shop"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Shop_Thoi_Trang_Mobile"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity android:name=".activity.ProductDetailsActivity"/>
-        <activity android:name=".activity.SignUpActivity"
-            tools:ignore="Instantiatable"></activity>
+        <activity android:name=".activity.ProductDetailsActivity" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".activity.SignUpActivity"
             tools:ignore="Instantiatable"></activity>
         <activity
             android:name=".activity.SignInActivity"
+            tools:ignore="Instantiatable"></activity>
+        <activity
+            android:name=".activity.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.CartActivity"></activity>
+        <activity android:name=".activity.UserEditProfileActivity"></activity>
+        <activity android:name=".activity.UserProfileActivity"></activity>
     </application>
 </manifest>
