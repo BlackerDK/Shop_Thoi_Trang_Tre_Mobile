@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/signUp"
     android:background="@color/back_ground_primary"
-    android:padding="4dp"
+    android:padding="8dp"
     >
 
     <TextView
@@ -15,24 +16,24 @@
         android:gravity="center"
         android:text="@string/tv_SignUp"
         android:textColor="@color/accent_orange"
-        android:textSize="36sp"
+        android:textSize="33sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/img_login"
-        app:layout_constraintVertical_bias="0.05"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1"/>
 
     <ImageView
         android:id="@+id/img_login"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="170dp"
         android:src="@drawable/img_register"
-        app:layout_constraintTop_toBottomOf="@id/tv_login"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/txtUseName"
-        app:layout_constraintVertical_bias="0.1"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_login" />
 
     <EditText
         android:id="@+id/txtUseName"
@@ -44,9 +45,44 @@
         app:layout_constraintTop_toBottomOf="@id/img_login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtPhone"
+        app:layout_constraintVertical_bias="0.1"/>
+    <EditText
+        android:id="@+id/txtPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@drawable/edittext_background"
+        android:hint="@string/ev_Phone"
+        app:layout_constraintTop_toBottomOf="@id/txtUseName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtAddress"
+        app:layout_constraintVertical_bias="0.1"/>
+    <EditText
+        android:id="@+id/txtAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@drawable/edittext_background"
+        android:hint="@string/ev_Address"
+        app:layout_constraintTop_toBottomOf="@id/txtPhone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtEmail"
+        app:layout_constraintVertical_bias="0.1"/>
+    <EditText
+        android:id="@+id/txtEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@drawable/edittext_background"
+        android:hint="@string/ev_Email"
+        app:layout_constraintTop_toBottomOf="@id/txtAddress"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/txtPassword"
-        app:layout_constraintVertical_bias="0.2"/>
-
+        app:layout_constraintVertical_bias="0.1"/>
     <EditText
         android:id="@+id/txtPassword"
         android:layout_width="0dp"
@@ -54,11 +90,11 @@
         android:padding="15dp"
         android:hint="@string/ev_Password"
         android:background="@drawable/edittext_background"
-        app:layout_constraintTop_toBottomOf="@id/txtUseName"
+        app:layout_constraintTop_toBottomOf="@id/txtEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/txtConfirmPassword"
-        app:layout_constraintVertical_bias="0.3"/>
+        app:layout_constraintVertical_bias="0.2"/>
 
     <EditText
         android:id="@+id/txtConfirmPassword"
@@ -70,21 +106,34 @@
         app:layout_constraintTop_toBottomOf="@id/txtPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnSignUp"
-        app:layout_constraintVertical_bias="0.4"/>
+        app:layout_constraintBottom_toTopOf="@id/fr"
+        app:layout_constraintVertical_bias="0.3"/>
 
-    <Button
-        android:id="@+id/btnSignUp"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/btn_primary"
-        android:text="@string/btn_SignUp"
-        app:cornerRadius="8dp"
+        android:id="@+id/fr"
         app:layout_constraintTop_toBottomOf="@id/txtConfirmPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tvAccountAlready"
-        app:layout_constraintVertical_bias="0.5"/>
+        app:layout_constraintVertical_bias="0.4">
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/btn_primary"
+            android:text="@string/btn_SignUp"
+            app:cornerRadius="8dp"
+            />
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/progressBar"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+    </FrameLayout>
+
 
     <TextView
         android:id="@+id/tvAccountAlready"
@@ -95,5 +144,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.6"/>
+        app:layout_constraintVertical_bias="0.5"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
