@@ -1,8 +1,11 @@
 package com.example.shop_thoi_trang_mobile.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -17,7 +20,14 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("userId", 0);
+        String userName = sharedPreferences.getString("userName", null);
+        String userEmail = sharedPreferences.getString("userEmail", null);
+        if (userName != null && userEmail != null) {
+            TextView txtUserName = findViewById(R.id.txt_username);
+            txtUserName.setText(userName);
+        }
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_profile);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -43,6 +53,16 @@ public class UserProfileActivity extends AppCompatActivity {
                 }
                 return false;
             }
+        });
+
+        Button btnLogout = findViewById(R.id.btn_logout);
+        btnLogout.setOnClickListener(v -> {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.remove("userId");
+            editor.remove("userName");
+            editor.remove("userEmail");
+            editor.apply();
+            startActivity(new Intent(UserProfileActivity.this, SignInActivity.class));
         });
     }
 

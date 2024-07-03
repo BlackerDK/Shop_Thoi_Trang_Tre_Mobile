@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "557007338977",
+    "firebase_url": "https://otp-shop-thoi-trang-default-rtdb.firebaseio.com",
+    "project_id": "otp-shop-thoi-trang",
+    "storage_bucket": "otp-shop-thoi-trang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557007338977:android:1fff3e1fa823bd3fad66a0",
+        "android_client_info": {
+          "package_name": "com.example.shop_thoi_trang_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvIxXvx2MGXrLK2VaeOOkQL9CTV5ymeEw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
