@@ -8,15 +8,15 @@ public class OrderItem {
     private int productId;
     private int quantity;
     private BigDecimal price;
-    private String name;
 
-    public OrderItem(int orderItemId, int orderId, int productId, int quantity, BigDecimal price, String name) {
+
+    public OrderItem(int orderItemId, int orderId, int productId, int quantity, BigDecimal) {
         this.orderItemId = orderItemId;
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
         this.price = price;
-        this.name = name;
+
     }
 
     public int getOrderItemId() {
@@ -59,11 +59,4 @@ public class OrderItem {
         this.price = price;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

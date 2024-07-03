@@ -42,33 +42,37 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Order order = orders.get(position);
 
-        holder.tvOrderId.setText("Order#" + order.getOrderId());
+        holder.tvOrderId.setText("Order#" + position + " - " + order.getOrderId());
         holder.tvOrderDate.setText("Date: " + DateToString(order.getOrderDate()));
-        holder.tvOrderQuantity.setText("Quantity: " + order.getQuantity());
+        // todo
+        // handle = cách lấy user từ session maybe
+//        holder.tvOrderQuantity.setText("Quantity: " + order.getQuantity());
+//        holder.tvFullName.setText("Full Name: " + order.getFullName());
+//        holder.tvPhoneNumber.setText("Phone Number: " + order.getPhoneNumber());
+//        holder.tvShippingAddress.setText("Shipping Address: " + order.getShippingAddress());
+
         holder.tvOrderTotal.setText("Total Amount: " + order.getOrderTotalAmount());
         holder.tvOrderStatus.setText("Status: " + order.getOrderStatus());
         holder.tvOrderStatus.setTextColor(getStatusColor(order.getOrderStatus()));
 
-        holder.tvFullName.setText("Full Name: " + order.getFullName());
-        holder.tvPhoneNumber.setText("Phone Number: " + order.getPhoneNumber());
-        holder.tvShippingAddress.setText("Shipping Address: " + order.getShippingAddress());
+
 
         holder.itemContainer.removeAllViews();
 
-        for (OrderItem item : order.getOrderItems()) {
-            View itemView = LayoutInflater.from(context).inflate(R.layout.order_item_details, holder.itemContainer, false);
-
-            TextView tvItemName = itemView.findViewById(R.id.tvItemName);
-            TextView tvItemPrice = itemView.findViewById(R.id.tvItemPrice);
-            TextView tvItemTotal = itemView.findViewById(R.id.tvItemTotal);
-            TextView tvItemQuantity = itemView.findViewById(R.id.tvItemQuantity);
-            tvItemName.setText(item.getName());
-            tvItemPrice.setText("Price: " + item.getPrice());
-            tvItemTotal.setText("Total: " + item.getQuantity() * item.getPrice().intValue());
-            tvItemQuantity.setText("Quantity: " + item.getQuantity());
-
-            holder.itemContainer.addView(itemView);
-        }
+//        for (OrderItem item : order.getOrderItems()) {
+//            View itemView = LayoutInflater.from(context).inflate(R.layout.order_item_details, holder.itemContainer, false);
+//
+//            TextView tvItemName = itemView.findViewById(R.id.tvItemName);
+//            TextView tvItemPrice = itemView.findViewById(R.id.tvItemPrice);
+//            TextView tvItemTotal = itemView.findViewById(R.id.tvItemTotal);
+//            TextView tvItemQuantity = itemView.findViewById(R.id.tvItemQuantity);
+//            tvItemName.setText(item.getName());
+//            tvItemPrice.setText("Price: " + item.getPrice());
+//            tvItemTotal.setText("Total: " + item.getQuantity() * item.getPrice().intValue());
+//            tvItemQuantity.setText("Quantity: " + item.getQuantity());
+//
+//            holder.itemContainer.addView(itemView);
+//        }
 
         holder.orderHeader.setOnClickListener(new View.OnClickListener() {
             @Override
