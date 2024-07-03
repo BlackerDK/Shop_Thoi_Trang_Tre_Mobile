@@ -13,9 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.model.CartItem;
@@ -27,7 +24,6 @@ import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,7 +32,7 @@ import retrofit2.Response;
 
 public class ProductDetailsActivity extends AppCompatActivity {
     private ImageView productImage;
-    private TextView productName, productCategory, productBrand, productPrice;
+    private TextView productName, productCategory, productBrand, productPrice,productDes;
 
     private ProductService productService;
     private Button addToCartButton;
@@ -52,6 +48,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productCategory = findViewById(R.id.product_category);
         productBrand = findViewById(R.id.product_brand);
         productPrice = findViewById(R.id.product_price);
+        productDes = findViewById(R.id.product_des);
         addToCartButton = findViewById(R.id.btnAddToCart);
 
         // Bottom navigation
@@ -71,7 +68,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                     intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
                     // Chuyển sang activity Profile (ví dụ)
-                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
+                    intent = new Intent(ProductDetailsActivity.this, UserProfileActivity.class);
                 }
                 if (intent != null) {
                     startActivity(intent);
@@ -80,7 +77,6 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 return false;
             }
         });
-
 
         Intent intent = getIntent();
         int productId = intent.getIntExtra("productId", -1);
@@ -127,6 +123,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             productCategory.setText("Category: " + product.getProductCategory());
                             productBrand.setText("Brand: " + product.getProductBrand());
                             productPrice.setText("$" + product.getProductPrice());
+                            productDes.setText(""+product.getProductDescription());
                             break;
                         }
                     }

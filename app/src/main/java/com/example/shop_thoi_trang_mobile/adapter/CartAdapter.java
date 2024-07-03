@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.model.CartItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.itemQuantity.setText(String.valueOf(cartItem.getQuantity()));
         holder.itemQuantityWithPrice.setText(cartItem.getQuantity() + " x " + cartItem.getPrice());
         holder.itemTotalPrice.setText(String.valueOf(cartItem.getQuantity() * cartItem.getPrice()));
-        Glide.with(context).load(cartItem.getImage()).into(holder.itemImage);
+        Picasso.get().load(cartItem.getImage()).into(holder.itemImage);
 
         // increase quantity
         holder.increaseQuantity.setOnClickListener(new View.OnClickListener() {
