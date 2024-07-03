@@ -10,7 +10,7 @@ public class OrderItem {
     private BigDecimal price;
 
 
-    public OrderItem(int orderItemId, int orderId, int productId, int quantity, BigDecimal) {
+    public OrderItem(int orderItemId, int orderId, int productId, int quantity, BigDecimal price) {
         this.orderItemId = orderItemId;
         this.orderId = orderId;
         this.productId = productId;

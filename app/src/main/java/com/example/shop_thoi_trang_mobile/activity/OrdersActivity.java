@@ -15,7 +15,6 @@ import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.adapter.OrderAdapter;
 import com.example.shop_thoi_trang_mobile.model.Order;
 import com.example.shop_thoi_trang_mobile.model.OrderResponse;
-import com.example.shop_thoi_trang_mobile.networking.ApiClient;
 import com.example.shop_thoi_trang_mobile.networking.OrderService;
 import com.google.android.material.tabs.TabLayout;
 
