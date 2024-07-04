@@ -49,6 +49,10 @@ public class OrderAdminAdapter  extends RecyclerView.Adapter<OrderViewHolder>{
     public int getItemCount() {
         return orders.size();
     }
+    public void setOrders(ArrayList<Order> orders) {
+        this.orders = orders;
+        notifyDataSetChanged();
+    }
 }
 class OrderViewHolder extends RecyclerView.ViewHolder{
     ImageView orderImage;

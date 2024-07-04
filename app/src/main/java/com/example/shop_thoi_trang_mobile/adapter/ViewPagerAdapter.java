@@ -8,12 +8,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.example.shop_thoi_trang_mobile.fragment.OrderFragment;
 import com.example.shop_thoi_trang_mobile.model.Order;
 import com.example.shop_thoi_trang_mobile.model.OrderItem;
+import com.example.shop_thoi_trang_mobile.networking.AdminBaseService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ViewPagerAdapter extends FragmentStateAdapter {
-    private final List<Order> orderItems;
+    private List<Order> orderItems;
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity, List<Order> OrderItems) {
         super(fragmentActivity);
         orderItems = OrderItems;
@@ -37,5 +38,9 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         return 3;
+    }
+    public void setOrderItems(List<Order> orderItems) {
+        this.orderItems = orderItems;
+        notifyDataSetChanged();
     }
 }

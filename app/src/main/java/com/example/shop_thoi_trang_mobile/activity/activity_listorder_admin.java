@@ -14,12 +14,19 @@ import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.adapter.ViewPagerAdapter;
 import com.example.shop_thoi_trang_mobile.model.Order;
 import com.example.shop_thoi_trang_mobile.model.OrderItem;
+import com.example.shop_thoi_trang_mobile.model.ResponseBase;
+import com.example.shop_thoi_trang_mobile.networking.AdminBaseService;
+import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
 import com.google.android.material.tabs.TabLayout;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class activity_listorder_admin extends AppCompatActivity {
 
@@ -40,11 +47,12 @@ public class activity_listorder_admin extends AppCompatActivity {
 
         tablayout = findViewById(R.id.tablayout);
         viewpager = findViewById(R.id.viewpager);
+
         orderItems = new ArrayList<Order>();
+/*        orderItems.add(new Order(1, (new Date()), 1, BigDecimal.valueOf(10000), "Dang giao hang"));
         orderItems.add(new Order(1, (new Date()), 1, BigDecimal.valueOf(10000), "Dang giao hang"));
         orderItems.add(new Order(1, (new Date()), 1, BigDecimal.valueOf(10000), "Dang giao hang"));
-        orderItems.add(new Order(1, (new Date()), 1, BigDecimal.valueOf(10000), "Dang giao hang"));
-        orderItems.add(new Order(1, (new Date()), 1, BigDecimal.valueOf(10000), "Dang giao hang"));
+        orderItems.add(new Order(1, (new Date()), 1, BigDecimal.valueOf(10000), "Dang giao hang"));*/
         viewPagerAdapter = new ViewPagerAdapter(this, orderItems);
         viewpager.setAdapter(viewPagerAdapter);
 
@@ -73,4 +81,6 @@ public class activity_listorder_admin extends AppCompatActivity {
             }
         });
     }
+
+
 }

@@ -15,6 +15,7 @@ import com.example.shop_thoi_trang_mobile.model.Notice;
 import com.example.shop_thoi_trang_mobile.model.Order;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationAdapter extends  RecyclerView.Adapter<NotificationViewHolder> {
 
@@ -43,6 +44,11 @@ public class NotificationAdapter extends  RecyclerView.Adapter<NotificationViewH
     @Override
     public int getItemCount() {
         return notices.size();
+    }
+
+    public void setList(List<Notice> notices) {
+        this.notices = (ArrayList<Notice>) notices;
+        notifyDataSetChanged();
     }
 }
 class NotificationViewHolder extends RecyclerView.ViewHolder{

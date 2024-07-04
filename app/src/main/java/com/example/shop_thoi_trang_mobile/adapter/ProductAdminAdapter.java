@@ -40,15 +40,22 @@ public class ProductAdminAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void onBindViewHolder(@androidx.annotation.NonNull MyViewHolder holder, int position) {
         Product product = productList.get(position);
         Glide.with(context).load(product.getProductImage()).into(holder.cardImage);
-        holder.cardTitle.setText(product.getProductName());
-        holder.cardDescription.setText(product.getProductDescription());
-
+        holder.cardTitle.setText(product.getProductName()+ " - " + product.getProductCode());
+        holder.cardDescription.setText(product.getProductBrand());
+        holder.cardPrice.setText(product.getProductPrice().toString().replace(".00", "") + " VND");
         holder.cardImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, activity_detailproduct_admin.class);
+                intent.putExtra("Id", product.getProductId()+"");
                 intent.putExtra("Image", product.getProductImage());
-                intent.putExtra("Description", product.getProductName());
+                intent.putExtra("Price", product.getProductPrice().toString().replace(".00", ""));
+                intent.putExtra("Brand", product.getProductBrand());
+                intent.putExtra("Code", product.getProductCode());
+                intent.putExtra("Name", product.getProductName());
+                intent.putExtra("Description", product.getProductDescription());
+                intent.putExtra("Quantity", product.getProductQuantity()+"");
+                intent.putExtra("Category", product.getProductCategory());
                 context.startActivity(intent);
             }
         });
@@ -62,16 +69,22 @@ public class ProductAdminAdapter extends RecyclerView.Adapter<MyViewHolder> {
         this.productList = productList;
         notifyDataSetChanged();
     }
+    public void loadData(List<Product> productList) {
+        this.productList = productList;
+        notifyDataSetChanged();
+    }
 }
 class MyViewHolder extends RecyclerView.ViewHolder {
     ImageView cardImage;
     TextView cardTitle;
     TextView cardDescription;
+    TextView cardPrice;
     public MyViewHolder(@NonNull View itemView) {
         super(itemView);
         cardImage = itemView.findViewById(R.id.cardImage);
         cardTitle = itemView.findViewById(R.id.cardTitle);
         cardDescription = itemView.findViewById(R.id.cardDescription);
+        cardPrice = itemView.findViewById(R.id.cardPrice);
     }
 }
 
