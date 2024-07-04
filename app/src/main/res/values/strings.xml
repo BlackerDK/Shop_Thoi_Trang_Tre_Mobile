@@ -8,8 +8,17 @@
     <string name="tv_forgot">Do you forgot passwords ?</string>
     <string name="tv_Already">Already Account? Sign in</string>
     <string name="ev_UserName">Enter Username</string>
+    <string name="ev_Email">Enter Email</string>
+    <string name="ev_Phone">Enter +84XXXXXXXXX</string>
+    <string name="ev_Address">Enter Address</string>
     <string name="ev_Password">Enter Password</string>
     <string name="ev_ConfirmPassword">Confirm Password</string>
+    <string name="otp_title">OTP Verification</string>
+    <string name="otp_noti">Enter the OTP sent to your phone number!!</string>
+    <string name="otp_missotp">Did not receive the OTP?</string>
+    <string name="otp_resend">RESEND OTP</string>
+    <string name="submit">Submit</string>
     <string name="btn_addcart">Add to cart</string>
     <string name="btn_buynow">Buy now</string>
+    <string name="verify_otp">VERIFY</string>
 </resources>

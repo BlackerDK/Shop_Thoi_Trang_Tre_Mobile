@@ -7,4 +7,24 @@ public class User {
     private String usersPhone;
     private String usersAddress;
     private int roleId;
+
+    public int getUsersId() {
+        return usersId;
+    }
+
+    public String getUsersName() {
+        return usersName;
+    }
+
+    public String getUsersEmail() {
+        return usersEmail;
+    }
+
+    public String getUsersPhone() {
+        return usersPhone;
+    }
+
+    public String getUsersAddress() {
+        return usersAddress;
+    }
 }
