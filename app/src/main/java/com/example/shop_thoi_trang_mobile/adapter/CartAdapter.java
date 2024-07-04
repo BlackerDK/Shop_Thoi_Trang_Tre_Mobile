@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.example.shop_thoi_trang_mobile.OnCartItemChangeListener;
 import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.model.CartItem;
 import com.squareup.picasso.Picasso;
@@ -24,10 +24,12 @@ import java.util.List;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     private List<CartItem> cartItemList;
     private Context context;
+    private OnCartItemChangeListener listener;
 
-    public CartAdapter(List<CartItem> cartItemList, Context context) {
-        this.cartItemList = cartItemList;
+    public CartAdapter(Context context,List<CartItem> cartItemList, OnCartItemChangeListener listener) {
         this.context = context;
+        this.cartItemList = cartItemList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -57,6 +59,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 holder.itemQuantity.setText(String.valueOf(quantity));
                 holder.itemQuantityWithPrice.setText(quantity + " x " + cartItem.getPrice());
                 holder.itemTotalPrice.setText(String.valueOf(quantity * cartItem.getPrice()));
+                notifyItemChanged(holder.getAdapterPosition());
+                listener.onCartItemChanged();
             }
         });
 
@@ -71,13 +75,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     holder.itemQuantity.setText(String.valueOf(quantity));
                     holder.itemQuantityWithPrice.setText(quantity + " x " + cartItem.getPrice());
                     holder.itemTotalPrice.setText(String.valueOf(quantity * cartItem.getPrice()));
+                    notifyItemChanged(holder.getAdapterPosition());
+                    listener.onCartItemChanged();
                 } else {
-                    cartItemList.remove(position);
-                    notifyDataSetChanged();// refresh recyclerview
+                    confirmDelete(holder.getAdapterPosition());
                 }
             }
         });
     }
+
     public void confirmDelete(int position) {
         new AlertDialog.Builder(context)
                 .setTitle("Delete Item")
@@ -87,6 +93,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                         cartItemList.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, cartItemList.size());
+                        listener.onCartItemChanged();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -98,10 +105,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 .show();
     }
 
+
+    public void removeItem(int position) {
+        cartItemList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, cartItemList.size());
+        listener.onCartItemChanged();
+    }
+
     @Override
     public int getItemCount() {
         return cartItemList.size();
     }
+
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
         TextView itemName, itemQuantity, itemQuantityWithPrice, itemTotalPrice;
@@ -118,7 +134,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
             decreaseQuantity = itemView.findViewById(R.id.btn_decrease_quantity);
             increaseQuantity = itemView.findViewById(R.id.btn_increase_quantity);
-
         }
+
     }
 }
