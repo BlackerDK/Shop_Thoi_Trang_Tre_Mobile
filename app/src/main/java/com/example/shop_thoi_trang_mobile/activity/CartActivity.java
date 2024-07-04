@@ -3,6 +3,7 @@ package com.example.shop_thoi_trang_mobile.activity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -66,6 +67,7 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
     private Double total_amount = 0.0;
     private PayPalConfiguration config;
     private OrderService orderService;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +105,10 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
 
         // display empty cart appearance
         updateUICart();
+
+        // fetch userId
+        SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+        userId = sharedPreferences.getInt("userId", 0);
 
         // initialize order service
         orderService = RetrofitClient.getRetrofitInstance().create(OrderService.class);
@@ -197,7 +203,7 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
 
     private void processCODPayment() {
         ArrayList<CartItemObjRequest> cartItemObjRequests = this.convertCartItemObject(cartManager.getCartItemList());
-        OrderRequest orderRequest = new OrderRequest(7, total_amount, "COD", cartItemObjRequests);
+        OrderRequest orderRequest = new OrderRequest(userId, total_amount, "COD", cartItemObjRequests);
         fetchOrder(orderRequest);
         showDialog("Order success", "Your order has been placed successfully");
     }
@@ -260,7 +266,7 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
         if (approved.equals("approved")) {
             // payment success on paypal method
             ArrayList<CartItemObjRequest> cartItemObjRequests = this.convertCartItemObject(cartManager.getCartItemList());
-            OrderRequest orderRequest = new OrderRequest(7, total_amount, "paypal", cartItemObjRequests);
+            OrderRequest orderRequest = new OrderRequest(userId, total_amount, "paypal", cartItemObjRequests);
 
             fetchOrder(orderRequest);
             showDialog("Payment success", "Your payment has been processed successfully");

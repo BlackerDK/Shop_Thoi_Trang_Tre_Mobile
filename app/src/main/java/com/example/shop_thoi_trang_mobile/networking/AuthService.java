@@ -3,6 +3,7 @@ package com.example.shop_thoi_trang_mobile.networking;
 import com.example.shop_thoi_trang_mobile.model.AuthResponse;
 import com.example.shop_thoi_trang_mobile.model.ProductResponse;
 import com.example.shop_thoi_trang_mobile.model.UserRequest;
+import com.example.shop_thoi_trang_mobile.model.UserUpdateRequest;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,4 +17,7 @@ public interface AuthService {
 
     @PUT("Auth")
     Call<AuthResponse> register(@Body UserRequest userRequest);
+    @PUT("Auth/UpdateUser")
+    Call<AuthResponse> updateUser(@Body UserUpdateRequest userRequest);
+
 }
