@@ -6,6 +6,7 @@ public class User {
     private String usersEmail;
     private String usersPhone;
     private String usersAddress;
+    private String usersPassword;
     private int roleId;
 
     public int getUsersId() {
@@ -26,5 +27,9 @@ public class User {
 
     public String getUsersAddress() {
         return usersAddress;
+    }
+
+    public String getUsersPassword() {
+        return usersPassword;
     }
 }

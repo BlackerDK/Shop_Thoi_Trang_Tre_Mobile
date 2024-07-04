@@ -15,6 +15,9 @@ import com.example.shop_thoi_trang_mobile.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UserProfileActivity extends AppCompatActivity {
+    private TextView txtUserName, txtId, txtEmail, txtAddress, txtPhone;
+    private Button btnEditProfile, btnLogout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,11 +25,27 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("userId", 0);
+
         String userName = sharedPreferences.getString("userName", null);
         String userEmail = sharedPreferences.getString("userEmail", null);
+        String userPhone = sharedPreferences.getString("userPhone", null);
+        String userAddress = sharedPreferences.getString("userAddress", null);
+
+        txtUserName = findViewById(R.id.txt_username);
+        txtId = findViewById(R.id.txt_id);
+        txtEmail = findViewById(R.id.txt_email);
+        txtAddress = findViewById(R.id.txt_address);
+        txtPhone = findViewById(R.id.txt_phone);
+        btnLogout = findViewById(R.id.btn_logout);
+        btnEditProfile = findViewById(R.id.btn_edit_profile);
+
         if (userName != null && userEmail != null) {
-            TextView txtUserName = findViewById(R.id.txt_username);
-            txtUserName.setText(userName);
+            txtUserName.setText("Username : " + userName);
+            txtId.setText("ID : " + userId);
+            txtEmail.setText(userEmail);
+            txtAddress.setText(userAddress);
+            txtPhone.setText(userPhone);
+
         }
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_profile);
@@ -55,14 +74,20 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        Button btnLogout = findViewById(R.id.btn_logout);
         btnLogout.setOnClickListener(v -> {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.remove("userId");
             editor.remove("userName");
             editor.remove("userEmail");
+            editor.remove("userPhone");
+            editor.remove("userAddress");
             editor.apply();
             startActivity(new Intent(UserProfileActivity.this, SignInActivity.class));
+        });
+
+        btnEditProfile.setOnClickListener(v -> {
+            Intent intent = new Intent(UserProfileActivity.this, UserEditProfileActivity.class);
+            startActivity(intent);
         });
     }
 
