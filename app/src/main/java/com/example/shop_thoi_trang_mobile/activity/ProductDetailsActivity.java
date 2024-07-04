@@ -94,6 +94,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 String image = productImage.toString();
 
                 CartItem cartItem = new CartItem(
+                        productId,
                         prodName,
                         quantity,
                         price,

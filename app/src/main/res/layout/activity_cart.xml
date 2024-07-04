@@ -85,7 +85,7 @@
                     android:background="@drawable/location" />
 
                 <TextView
-                    android:id="@+id/address"
+                    android:id="@+id/tv_delivery_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -116,10 +116,11 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/radio_zalo"
+                        android:id="@+id/radio_paypal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Zalo Pay"
+                        android:text="Paypal"
+                        android:checked="true"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -145,14 +146,14 @@
                 android:id="@+id/tv_subtotal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Subtotal: $81.0"
+                android:text="Subtotal: $0.0"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_delivery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Delivery: $10.0"
+                android:text="Delivery: $0.0"
                 android:textSize="16sp" />
 
             <TextView
@@ -160,7 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="8dp"
-                android:text="Total: $92.0"
+                android:text="Total: $0.0"
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>

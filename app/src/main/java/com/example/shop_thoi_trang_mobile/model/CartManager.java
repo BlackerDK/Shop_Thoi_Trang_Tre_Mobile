@@ -23,10 +23,20 @@ public class CartManager {
     }
 
     public void addItemToCart(CartItem item) {
+        // check if item already exists in cart
+        for (CartItem cartItem : cartItemList) {
+            if (cartItem.getId() == item.getId()) {
+                cartItem.setQuantity(cartItem.getQuantity() + 1);
+                return;
+            }
+        }
         cartItemList.add(item);
     }
 
     public void removeItemFromCart(CartItem item) {
         cartItemList.remove(item);
+    }
+    public void clearCart() {
+        cartItemList.clear();
     }
 }
