@@ -20,9 +20,9 @@
         <activity
             android:name=".activity.activity_notification"
             android:exported="false" />
-<!--        <activity
+        <activity
             android:name=".activity.activity_listorder_admin"
-            android:exported="false" />-->
+            android:exported="false" />
         <activity
             android:name=".activity.activity_updateproduct_admin"
             android:exported="false" />
@@ -43,7 +43,7 @@
             android:name=".activity.SignInActivity"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".activity.activity_listorder_admin"
+            android:name=".activity.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
