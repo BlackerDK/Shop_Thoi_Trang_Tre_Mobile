@@ -9,7 +9,7 @@
     <string name="tv_Already">Already Account? Sign in</string>
     <string name="ev_UserName">Enter Username</string>
     <string name="ev_Email">Enter Email</string>
-    <string name="ev_Phone">Enter +84XXXXXXXXX</string>
+    <string name="ev_Phone">Enter Phone</string>
     <string name="ev_Address">Enter Address</string>
     <string name="ev_Password">Enter Password</string>
     <string name="ev_ConfirmPassword">Confirm Password</string>

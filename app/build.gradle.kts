@@ -42,11 +42,15 @@ android {
     buildFeatures {
         buildConfig = true
     }
-
+    packagingOptions {
+        exclude("**/NOTICE.md")
+        exclude("**/LICENSE.md")
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
@@ -72,4 +76,6 @@ dependencies {
     implementation("com.paypal.sdk:paypal-android-sdk:2.16.0")
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.sun.mail:android-mail:1.6.6")
+    implementation("com.sun.mail:android-activation:1.6.7")
 }
