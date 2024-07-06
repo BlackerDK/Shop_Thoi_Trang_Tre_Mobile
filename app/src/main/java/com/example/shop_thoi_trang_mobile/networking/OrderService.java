@@ -1,5 +1,6 @@
 package com.example.shop_thoi_trang_mobile.networking;
 
+import com.example.shop_thoi_trang_mobile.model.OrderByUserResponse;
 import com.example.shop_thoi_trang_mobile.model.OrderResponse;
 
 import retrofit2.Call;
@@ -15,7 +16,7 @@ public interface OrderService {
     @GET(ORDER)
     Call<OrderResponse> getAllOrder();
     @GET(ORDER_BY_ID)
-    Call<OrderResponse> getOrderById(@Path("id") int id);
+    Call<OrderByUserResponse> getOrderById(@Path("id") int id);
     @GET(ORDER_BY_USER_ID)
     Call<OrderResponse> getOrdersByUserId(@Query("userid") int userId);
 }
