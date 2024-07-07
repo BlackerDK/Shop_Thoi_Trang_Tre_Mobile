@@ -2,6 +2,10 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="bottom_nav_color">#FF6200EE</color>
+    <color name="green">#7ECE68</color>
+    <color name="orange">#EE8B34</color>
+    <color name="red">#FF0000</color>
     <color name="back_ground_primary">#ADD8E6</color>
     <color name="back_ground_secondary">#FF69B4</color>
 

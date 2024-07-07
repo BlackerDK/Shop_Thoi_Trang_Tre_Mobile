@@ -19,12 +19,13 @@
         <activity android:name=".activity.ProductDetailsActivity" />
         <activity
             android:name=".activity.SignUpActivity"
-            tools:ignore="Instantiatable"></activity>
+            tools:ignore="Instantiatable">
+        </activity>
         <activity android:name=".activity.SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -32,11 +33,12 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity"></activity>
         <activity android:name=".activity.CartActivity"></activity>
+        <activity android:name=".activity.OrdersActivity" android:exported="true"></activity>
         <activity android:name=".activity.UserEditProfileActivity"
             android:exported="true">
             <intent-filter>

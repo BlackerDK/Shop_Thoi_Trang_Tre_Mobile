@@ -1,6 +1,8 @@
 package com.example.shop_thoi_trang_mobile.activity;
+
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -27,17 +29,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class HomeActivity extends AppCompatActivity {
-        private RecyclerView recyclerView;
-        private ProductAdapter productAdapter;
-        private List<Product> productList;
-        private ProductService productService;
-        SearchView searchView;
+    private RecyclerView recyclerView;
+    private ProductAdapter productAdapter;
+    private List<Product> productList;
+    private ProductService productService;
+    SearchView searchView;
+
     @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_home);
-            //Take recycleView
-            recyclerView = findViewById(R.id.recycler_view_products);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        //Take recycleView
+        recyclerView = findViewById(R.id.recycler_view_products);
         productList = new ArrayList<>();
         productAdapter = new ProductAdapter(productList, new ProductAdapter.OnItemClickListener() {
             @Override
@@ -48,27 +51,27 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(productAdapter);
-            searchView = findViewById(R.id.search_product);
-            searchView.clearFocus();
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
+        searchView = findViewById(R.id.search_product);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    filterList(newText);
-                    return false;
-                }
-            });
-            // Set up the toolbar
-            androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return false;
+            }
+        });
+        // Set up the toolbar
+        androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-            // Set up bottom navigation
+        // Set up bottom navigation
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -98,6 +101,7 @@ public class HomeActivity extends AppCompatActivity {
         productService = RetrofitClient.getRetrofitInstance().create(ProductService.class);
         fetchProducts();
     }
+
     private void fetchProducts() {
         Call<ProductResponse> call = productService.getAllProduct();
         call.enqueue(new Callback<ProductResponse>() {
@@ -114,6 +118,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
                 // Xử lý lỗi, ví dụ: thông báo lỗi cho người dùng
@@ -121,16 +126,17 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
     }
+
     private void filterList(String newText) {
         List<Product> filterList = new ArrayList<>();
-        for (Product itemProduct : productList){
-            if (itemProduct.getProductName().toLowerCase().contains(newText.toLowerCase())){
+        for (Product itemProduct : productList) {
+            if (itemProduct.getProductName().toLowerCase().contains(newText.toLowerCase())) {
                 filterList.add(itemProduct);
             }
         }
-        if (filterList.isEmpty()){
-            Toast.makeText(this,"No data",Toast.LENGTH_LONG).show();
-        }else {
+        if (filterList.isEmpty()) {
+            Toast.makeText(this, "No data", Toast.LENGTH_LONG).show();
+        } else {
             productAdapter.setFilter(filterList);
         }
     }

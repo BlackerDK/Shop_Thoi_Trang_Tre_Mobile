@@ -64,7 +64,7 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
     private TextView tv_delivery_address, subtotal, shipping_fee, total_price;
     private RadioGroup payment_method;
     private Button btn_place_order;
-    private Double total_amount = 0.0;
+    private double total_amount = 0.0;
     private PayPalConfiguration config;
     private OrderService orderService;
     private int userId;
@@ -188,9 +188,8 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
     }
 
     private void processPaypalPayment() {
-        double usdAmount = CurrencyConverter.convertVndToUsd(total_amount);
         PayPalPayment payment = new PayPalPayment(new BigDecimal(
-                String.valueOf(usdAmount)
+                String.valueOf(total_amount)
         ), "USD", "Shop Young Fashion - Payment",
                 PayPalPayment.PAYMENT_INTENT_SALE);
 
@@ -285,10 +284,9 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
             total_amount += item.getPrice() * item.getQuantity();
         }
         // update text view
-        String formatNumber = NumberFormat.getCurrencyInstance(new Locale("vi", "VN")).format(total_amount);
-        subtotal.setText("Subtotal: " + formatNumber);
+        subtotal.setText("Subtotal: " + total_amount + " $");
         shipping_fee.setText("Shipping fee: " + 0);
-        total_price.setText("Total: " + formatNumber);
+        total_price.setText("Total: " + total_amount + "$");
     }
 
     private void updateUICart() {
@@ -307,6 +305,7 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
         ArrayList<CartItemObjRequest> cartItemObjRequests = new ArrayList<>();
         for (CartItem item :
                 cartItems) {
+            System.out.println(item.getId() + " " + item.getQuantity() + " " + item.getPrice());
             cartItemObjRequests.add(new CartItemObjRequest(item.getId(), item.getQuantity(), item.getPrice()));
         }
         return cartItemObjRequests;
