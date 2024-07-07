@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -17,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class UserProfileActivity extends AppCompatActivity {
     private TextView txtUserName, txtId, txtEmail, txtAddress, txtPhone;
     private Button btnEditProfile, btnLogout;
+    private LinearLayout orderHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,12 @@ public class UserProfileActivity extends AppCompatActivity {
         txtPhone = findViewById(R.id.txt_phone);
         btnLogout = findViewById(R.id.btn_logout);
         btnEditProfile = findViewById(R.id.btn_edit_profile);
+        orderHistory = findViewById(R.id.orderHistory);
+
+        orderHistory.setOnClickListener(v -> {
+            Intent intent = new Intent(UserProfileActivity.this, OrdersActivity.class);
+            startActivity(intent);
+        });
 
         if (userName != null && userEmail != null) {
             txtUserName.setText("Username : " + userName);

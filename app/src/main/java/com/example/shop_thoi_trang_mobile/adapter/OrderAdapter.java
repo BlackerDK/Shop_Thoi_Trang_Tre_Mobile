@@ -218,9 +218,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
                 .resize(50, 50)
                 .into(ivItem);
         tvItemName.setText(product.getProductName());
-        tvItemPrice.setText("Price: " + item.getPrice() + "VND");
+        tvItemPrice.setText("Price: " + item.getPrice() + "$");
         tvItemQuantity.setText("Quantity: " + item.getQuantity());
-        tvItemTotal.setText("Total: " + item.getQuantity() * item.getPrice().intValue() + "VND");
+        tvItemTotal.setText("Total: " + item.getQuantity() * item.getPrice().intValue() + "$");
 
         itemContainer.addView(itemView);
     }
