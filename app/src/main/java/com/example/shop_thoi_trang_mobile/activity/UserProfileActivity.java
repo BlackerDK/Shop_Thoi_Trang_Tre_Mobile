@@ -3,6 +3,7 @@ package com.example.shop_thoi_trang_mobile.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -13,10 +14,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shop_thoi_trang_mobile.R;
+import com.example.shop_thoi_trang_mobile.model.Order;
+import com.example.shop_thoi_trang_mobile.model.OrderResponse;
+import com.example.shop_thoi_trang_mobile.networking.OrderService;
+import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserProfileActivity extends AppCompatActivity {
-    private TextView txtUserName, txtId, txtEmail, txtAddress, txtPhone;
+    private TextView txtUserName, txtId, txtEmail, txtAddress, txtPhone, txt_total_order_paid, txt_total_order_value;
     private Button btnEditProfile, btnLogout;
     private LinearLayout orderHistory;
 
@@ -41,6 +53,8 @@ public class UserProfileActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btn_logout);
         btnEditProfile = findViewById(R.id.btn_edit_profile);
         orderHistory = findViewById(R.id.orderHistory);
+        txt_total_order_paid = findViewById(R.id.txt_total_order_paid);
+        txt_total_order_value = findViewById(R.id.txt_total_order_value);
 
         orderHistory.setOnClickListener(v -> {
             Intent intent = new Intent(UserProfileActivity.this, OrdersActivity.class);
@@ -96,6 +110,50 @@ public class UserProfileActivity extends AppCompatActivity {
         btnEditProfile.setOnClickListener(v -> {
             Intent intent = new Intent(UserProfileActivity.this, UserEditProfileActivity.class);
             startActivity(intent);
+        });
+
+        // fetch all orders of a specific user by id
+        fetchOrdersFromDataSource(userId, new OrdersActivity.OrdersCallback() {
+            @Override
+            public void onSuccess(List<Order> orders) {
+                int totalOrderValue = orders.size();
+                txt_total_order_value.setText("Total Orders : " + totalOrderValue);
+                Log.d("API_RESPONSE", "Orders fetched successfully");
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e("API_ERROR", "Error fetching Orders", t);
+            }
+        });
+    }
+
+    private void fetchOrdersFromDataSource(int userId, final OrdersActivity.OrdersCallback callback) {
+
+        OrderService orderService = RetrofitClient.getRetrofitInstance().create(OrderService.class);
+        Call<OrderResponse> call = orderService.getOrdersByUserId(userId);
+        call.enqueue(new Callback<OrderResponse>() {
+            @Override
+            public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Order> orderList = response.body().getResult();
+                    if (orderList != null) {
+                        callback.onSuccess(orderList);
+                    } else {
+                        callback.onFailure(new Throwable("Order list is null"));
+                    }
+                } else {
+                    Log.e("API_ERROR", "Response unsuccessful");
+                    callback.onFailure(new Throwable("Response unsuccessful"));
+                }
+                Log.d("API_RESPONSE", new Gson().toJson(response.body()));
+            }
+
+            @Override
+            public void onFailure(Call<OrderResponse> call, Throwable t) {
+                Log.e("API_ERROR", "Error fetching Orders", t);
+                callback.onFailure(t);
+            }
         });
     }
 

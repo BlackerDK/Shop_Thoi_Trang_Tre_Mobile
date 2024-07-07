@@ -1,4 +1,5 @@
 package com.example.shop_thoi_trang_mobile.model;
+import java.math.BigDecimal;
 
 public class CartItem {
     private int id;
@@ -8,6 +9,7 @@ public class CartItem {
     private double price;
 
     public CartItem(int id, String name, int quantity, double price, String image) {
+        this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.price = price;

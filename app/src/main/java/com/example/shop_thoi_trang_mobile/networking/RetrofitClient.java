@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://thoitrangtre.onrender.com/api/";
+    private static final String BASE_URL = "https://thoitrangtre.onrender.com/api/";
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {
