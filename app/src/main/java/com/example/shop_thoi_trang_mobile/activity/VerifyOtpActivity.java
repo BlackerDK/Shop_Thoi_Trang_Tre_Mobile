@@ -43,7 +43,6 @@ import retrofit2.Response;
 
 public class VerifyOtpActivity extends AppCompatActivity {
     private EditText ipCode1, ipCode2, ipCode3, ipCode4, ipCode5, ipCode6;
-    private String verificationId;
     private AuthService authService;
 
     @Override
@@ -53,7 +52,7 @@ public class VerifyOtpActivity extends AppCompatActivity {
         setContentView(R.layout.verify_phone);
         Intent receivedIntent = getIntent();
         UserRequest receivedUserRequest = receivedIntent.getParcelableExtra("userRequest");
-
+        String otpSent = receivedIntent.getStringExtra("otp");
         ipCode1 = findViewById(R.id.ipCode1);
         ipCode2 = findViewById(R.id.ipCode2);
         ipCode3 = findViewById(R.id.ipCode3);
@@ -65,55 +64,37 @@ public class VerifyOtpActivity extends AppCompatActivity {
         Button btnSubmitOTP = (Button) findViewById(R.id.btnSubmitOTP);
         if (receivedUserRequest != null) {
             setupOTPInput();
-            verificationId = getIntent().getStringExtra("verificationId");
             btnSubmitOTP.setOnClickListener(v -> {
                 if (ipCode1.getText().toString().trim().isEmpty() || ipCode2.getText().toString().trim().isEmpty() || ipCode3.getText().toString().trim().isEmpty() || ipCode4.getText().toString().trim().isEmpty()
                         || ipCode5.getText().toString().trim().isEmpty() || ipCode6.getText().toString().trim().isEmpty())
                     Toast.makeText(VerifyOtpActivity.this, "Please enter all the OTP", Toast.LENGTH_SHORT).show();
                 String code = ipCode1.getText().toString() + ipCode2.getText().toString() + ipCode3.getText().toString() + ipCode4.getText().toString() + ipCode5.getText().toString() + ipCode6.getText().toString();
-                if (verificationId != null) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    btnSubmitOTP.setVisibility(View.INVISIBLE);
-                    PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(
-                            verificationId, code
-                    );
-                    FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                    btnSubmitOTP.setVisibility(View.VISIBLE);
-                                    if (task.isSuccessful()) {
-                                        authService = RetrofitClient.getRetrofitInstance().create(AuthService.class);
-                                        Call<AuthResponse> call = authService.register(receivedUserRequest);
-                                        call.enqueue(new Callback<AuthResponse>() {
-                                            @Override
-                                            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                                                if (response.isSuccessful() && response.body() != null) {
-                                                    if (response.isSuccessful() && response.body() != null) {
-                                                        User user = response.body().getResult();
-                                                        Toast.makeText(VerifyOtpActivity.this, "Registered Success", Toast.LENGTH_SHORT).show();
-                                                        startActivity(new Intent(VerifyOtpActivity.this, SignInActivity.class));
-                                                        finish();
-                                                    } else {
-                                                        Log.e("API_ERROR", "Response unsuccessful");
-                                                    }
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onFailure(Call<AuthResponse> call, Throwable t) {
-                                                // Xử lý lỗi, ví dụ: thông báo lỗi cho người dùng
-                                                Log.e("API_ERROR", "Error fetching products", t);
-                                            }
-                                        });
+                if (otpSent != null) {
+                    if(otpSent.equals(code)){
+                        authService = RetrofitClient.getRetrofitInstance().create(AuthService.class);
+                        Call<AuthResponse> call = authService.register(receivedUserRequest);
+                        call.enqueue(new Callback<AuthResponse>() {
+                            @Override
+                            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                                if (response.isSuccessful() && response.body() != null) {
+                                    if (response.isSuccessful() && response.body() != null) {
+                                        User user = response.body().getResult();
+                                        Toast.makeText(VerifyOtpActivity.this, "Registered Success", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(VerifyOtpActivity.this, SignInActivity.class));
                                         finish();
                                     } else {
-                                        Toast.makeText(VerifyOtpActivity.this, "Registered Failed", Toast.LENGTH_SHORT).show();
+                                        Log.e("API_ERROR", "Response unsuccessful");
                                     }
                                 }
-                            });
-
+                            }
+                            @Override
+                            public void onFailure(Call<AuthResponse> call, Throwable t) {
+                                // Xử lý lỗi, ví dụ: thông báo lỗi cho người dùng
+                                Log.e("API_ERROR", "Error register", t);
+                            }
+                        });
+                        finish();
+                    }
                 }
             });
 

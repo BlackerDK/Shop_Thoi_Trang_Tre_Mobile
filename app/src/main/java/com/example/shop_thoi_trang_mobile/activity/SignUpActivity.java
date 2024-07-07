@@ -1,6 +1,7 @@
 package com.example.shop_thoi_trang_mobile.activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.shop_thoi_trang_mobile.AppData;
 import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.model.UserRequest;
 import com.google.firebase.FirebaseApp;
@@ -23,7 +25,19 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class SignUpActivity extends AppCompatActivity{
     private EditText etUsername;
@@ -42,7 +56,6 @@ public class SignUpActivity extends AppCompatActivity{
     private  final String REQUIRE="Require";
     @Override
     protected void onCreate(Bundle saveInstanceState){
-
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activitiy_sign_up);
         etUsername = (EditText) findViewById(R.id.txtUseName);
@@ -55,7 +68,21 @@ public class SignUpActivity extends AppCompatActivity{
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         tvAlreadyAccount = (TextView) findViewById(R.id.tvAccountAlready);
         tvAlreadyAccount.setOnClickListener(v -> signInForm());
-        btnSignUp.setOnClickListener(v -> signUp());
+        int SDK_INT = android.os.Build.VERSION.SDK_INT;
+        if (SDK_INT > 8)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            btnSignUp.setOnClickListener(v -> {
+                try {
+                    signUp();
+                } catch (MessagingException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }
+
     }
     private boolean checkInput(){
         if(TextUtils.isEmpty(etUsername.getText().toString())){
@@ -85,58 +112,62 @@ public class SignUpActivity extends AppCompatActivity{
         }
         return true;
     }
-    private void signUp(){
+    private void signUp() throws MessagingException {
         if(!checkInput()){
             return;
         }
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                    etPhone.getText().toString(), 60, TimeUnit.SECONDS, SignUpActivity.this,
-                    new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                        @Override
-                        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                            progressBar.setVisibility(View.GONE);
-                            btnSignUp.setVisibility(View.VISIBLE);
-                        }
-                        @Override
-                        public void onVerificationFailed(@NonNull FirebaseException e) {
-                            progressBar.setVisibility(View.GONE);
-                            btnSignUp.setVisibility(View.VISIBLE);
-                            Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                        @Override
-                        public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                            UserRequest userRequest = new UserRequest(
-                                    etUsername.getText().toString(),
-                                    etEmail.getText().toString(),
-                                    etPhone.getText().toString(),
-                                    etAddress.getText().toString(),
-                                    etPassword.getText().toString()
-                            );
-                            progressBar.setVisibility(View.GONE);
-                            btnSignUp.setVisibility(View.VISIBLE);
-                            //Toast.makeText(this,"Sign up success",Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(getApplicationContext(), VerifyOtpActivity.class);
-                            intent.putExtra("userRequest", userRequest);
-                            intent.putExtra("verificationId", s);
-                            startActivity(intent);
-                        }
-                    }
-            );
-            finish();
+        UserRequest userRequest = new UserRequest(
+                etUsername.getText().toString(),
+                etEmail.getText().toString(),
+                etPhone.getText().toString(),
+                etAddress.getText().toString(),
+                etPassword.getText().toString()
+        );
+        String otp = generateRandomString(6);
+        sendMail(otp,etEmail.getText().toString());
+        Intent intent = new Intent(getApplicationContext(), VerifyOtpActivity.class);
+        intent.putExtra("userRequest", userRequest);
+        intent.putExtra("otp", otp);
+        startActivity(intent);
+        finish();
+    }
 
+    public static String generateRandomString(int length) {
+        String chars = "0123456789";
+        StringBuilder randomString = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            int randomIndex = random.nextInt(chars.length());
+            randomString.append(chars.charAt(randomIndex));
+        }
+        return randomString.toString();
     }
     private void signInForm(){
         Intent intent = new Intent(this,SignInActivity.class);
         startActivity(intent);
         finish();
     }
-    /*@Override
-    public void onClick(View v){
-        if (v.getId() == R.id.btnSignUp) {
-            signUp();
-        } else if (v.getId() == R.id.tvAccountAlready) {
-            signInForm();
-        }
-    }*/
+
+    public static void sendMail(String otp, String receiverEmail) throws MessagingException {
+        Properties properties = System.getProperties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.ssl.enable", "true");
+
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(AppData.Sender_Email, AppData.Sender_Password);
+            }
+        });
+
+        MimeMessage message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(AppData.Sender_Email));
+        message.addRecipients(Message.RecipientType.TO, new InternetAddress[]{new InternetAddress(receiverEmail)});
+        message.setSubject("OTP Verification");
+        message.setText("Your OTP is " + otp);
+
+        Transport.send(message);
+    }
 }

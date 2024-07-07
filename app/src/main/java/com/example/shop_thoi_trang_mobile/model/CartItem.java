@@ -1,12 +1,13 @@
 package com.example.shop_thoi_trang_mobile.model;
 
 public class CartItem {
+    private int id;
     private String name;
     private int quantity;
     private String image;
     private double price;
 
-    public CartItem(String name, int quantity, double price, String image) {
+    public CartItem(int id, String name, int quantity, double price, String image) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
@@ -44,5 +45,12 @@ public class CartItem {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

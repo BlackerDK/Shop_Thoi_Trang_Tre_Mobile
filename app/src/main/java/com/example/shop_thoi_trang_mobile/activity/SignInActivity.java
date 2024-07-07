@@ -80,6 +80,7 @@ public class SignInActivity  extends AppCompatActivity implements View.OnClickLi
                         editor.putString("userEmail", user.getUsersEmail());
                         editor.putString("userPhone", user.getUsersPhone());
                         editor.putString("userAddress", user.getUsersAddress());
+                        editor.putString("userPassword", user.getUsersPassword());
                         editor.apply();
                         Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                         startActivity(intent);
