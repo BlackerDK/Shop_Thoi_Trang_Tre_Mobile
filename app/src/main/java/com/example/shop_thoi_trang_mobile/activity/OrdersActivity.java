@@ -58,16 +58,12 @@ public class OrdersActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Intent intent = null;
                 if (item.getItemId() == R.id.nav_home) {
-                    // Chuyển sang activity Home (ví dụ)
                     intent = new Intent(OrdersActivity.this, HomeActivity.class);
                 } else if (item.getItemId() == R.id.nav_cart) {
-                    // Chuyển sang activity Category (ví dụ)
                     intent = new Intent(OrdersActivity.this, CartActivity.class);
                 } else if (item.getItemId() == R.id.nav_noti) {
-                    // Chuyển sang activity Cart (ví dụ)
-                    intent = new Intent(OrdersActivity.this, OrdersActivity.class);
+                    intent = new Intent(OrdersActivity.this, HomeActivity.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
-                    // Chuyển sang activity Profile (ví dụ)
                     intent = new Intent(OrdersActivity.this, UserProfileActivity.class);
                 }
                 if (intent != null) {
@@ -101,37 +97,37 @@ public class OrdersActivity extends AppCompatActivity {
     }
 
     private void loadInitialOrders(int userId) {
-        isLoading = true; // Set loading flag to true
+        isLoading = true;
         fetchOrdersFromDataSource(userId, new OrdersCallback() {
             @Override
             public void onSuccess(List<Order> newOrders) {
                 orders.clear();
                 orders.addAll(newOrders);
                 orderAdapter.notifyDataSetChanged();
-                isLoading = false; // Set loading flag to false
+                isLoading = false;
             }
 
             @Override
             public void onFailure(Throwable t) {
                 Log.e("API_ERROR", "Error fetching Orders", t);
-                isLoading = false; // Set loading flag to false
+                isLoading = false;
             }
         });
     }
 
     private void loadMoreOrders(int userId) {
-        isLoading = true; // Set loading flag to true
+        isLoading = true;
         fetchOrdersFromDataSource(userId, new OrdersCallback() {
             @Override
             public void onSuccess(List<Order> newOrders) {
                 orderAdapter.addOrders(newOrders);
-                isLoading = false; // Set loading flag to false
+                isLoading = false;
             }
 
             @Override
             public void onFailure(Throwable t) {
                 Log.e("API_ERROR", "Error fetching Orders", t);
-                isLoading = false; // Set loading flag to false
+                isLoading = false;
             }
         });
     }

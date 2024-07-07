@@ -2,14 +2,11 @@ package com.example.shop_thoi_trang_mobile.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,21 +19,14 @@ import com.example.shop_thoi_trang_mobile.model.Order;
 import com.example.shop_thoi_trang_mobile.model.OrderByUserResponse;
 import com.example.shop_thoi_trang_mobile.model.OrderByUserResponse.OrderResult;
 import com.example.shop_thoi_trang_mobile.model.OrderItem;
-import com.example.shop_thoi_trang_mobile.model.OrderResponse;
 import com.example.shop_thoi_trang_mobile.model.Product;
-import com.example.shop_thoi_trang_mobile.model.ProductResponse;
 import com.example.shop_thoi_trang_mobile.model.SingleProductResponse;
 import com.example.shop_thoi_trang_mobile.networking.OrderService;
 import com.example.shop_thoi_trang_mobile.networking.ProductService;
 import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -144,11 +134,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
 
     private int getStatusColor(String status) {
         switch (status) {
-            case "Delivered":
+            case "PaySuccess":
                 return context.getResources().getColor(R.color.green);
-            case "In Transit":
-                return context.getResources().getColor(R.color.orange);
-            case "Canceled":
+            case "PayNotSuccess":
                 return context.getResources().getColor(R.color.red);
             default:
                 return context.getResources().getColor(R.color.black);
