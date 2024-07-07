@@ -17,18 +17,18 @@
         android:layout_gravity="center"
         android:src="@drawable/sample_product" />
     <TextView
-        android:id="@+id/product_name"
+        android:id="@+id/product_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="4dp"
         android:text="Product Name"
         android:textAlignment="center"
+        android:fontFamily="serif"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
-
     <TextView
-        android:id="@+id/product_price"
+        android:id="@+id/product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="2dp"
