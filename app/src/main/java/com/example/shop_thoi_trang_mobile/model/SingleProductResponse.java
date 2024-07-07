@@ -2,16 +2,16 @@ package com.example.shop_thoi_trang_mobile.model;
 
 import java.util.List;
 
-public class OrderResponse {
-    private List<Order> result;
+public class SingleProductResponse {
+    private Product result;
     private boolean isSuccess;
     private String message;
 
-    public List<Order> getResult() {
+    public Product getResult() {
         return result;
     }
 
-    public void setResult(List<Order> result) {
+    public void setResult(Product result) {
         this.result = result;
     }
 
