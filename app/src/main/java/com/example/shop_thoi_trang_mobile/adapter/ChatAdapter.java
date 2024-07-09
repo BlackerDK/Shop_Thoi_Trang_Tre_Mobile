@@ -40,16 +40,16 @@ public class ChatAdapter extends ArrayAdapter<ChatList> {
         convertView = inflater.inflate(mResource, parent, false);
 
         TextView lastMessageTextView = convertView.findViewById(R.id.lastMessage);
-        TextView unreadMessageTextView = convertView.findViewById(R.id.unseenMessages);
+        //TextView unreadMessageTextView = convertView.findViewById(R.id.unseenMessages);
         TextView nameTextView = convertView.findViewById(R.id.name);
         TextView idTextView = convertView.findViewById(R.id.txtId);
         lastMessageTextView.setText(lastMessage);
-        unreadMessageTextView.setText(String.valueOf(unreadMessage));
-        if (unreadMessage == 0) {
-            unreadMessageTextView.setVisibility(View.GONE);
-        } else {
-            unreadMessageTextView.setVisibility(View.VISIBLE);
-        }
+//        unreadMessageTextView.setText(String.valueOf(unreadMessage));
+//        if (unreadMessage == 0) {
+//            unreadMessageTextView.setVisibility(View.GONE);
+//        } else {
+//            unreadMessageTextView.setVisibility(View.VISIBLE);
+//        }
         nameTextView.setText(name);
         idTextView.setText(String.valueOf(id));
         return convertView;
