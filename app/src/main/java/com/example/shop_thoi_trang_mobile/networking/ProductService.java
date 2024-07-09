@@ -2,6 +2,7 @@ package com.example.shop_thoi_trang_mobile.networking;
 
 import com.example.shop_thoi_trang_mobile.model.Product;
 import com.example.shop_thoi_trang_mobile.model.ProductResponse;
+import com.example.shop_thoi_trang_mobile.model.SingleProductResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -14,4 +15,7 @@ public interface ProductService {
     Call<ProductResponse> getAllProduct();
     @GET(PRODUCT_BY_ID)
     Call<ProductResponse> getProductById(@Path("id") int id);
+
+    @GET(PRODUCT_BY_ID)
+    Call<SingleProductResponse> getSingleProductById(@Path("id") int id);
 }
