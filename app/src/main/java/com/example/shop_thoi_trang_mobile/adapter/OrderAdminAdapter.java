@@ -10,10 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.model.Order;
-import com.example.shop_thoi_trang_mobile.model.Product;
 
 import java.util.ArrayList;
 
@@ -30,7 +28,7 @@ public class OrderAdminAdapter  extends RecyclerView.Adapter<OrderViewHolder>{
     @NonNull
     @Override
     public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.order_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.order_item_admin, parent, false);
         return new OrderViewHolder(view);
     }
 
