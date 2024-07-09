@@ -33,4 +33,8 @@
     <color name="btn_buy_now_border">#000080</color>
     <color name="btn_add_to_cart">#FFA500</color>
     <color name="btn_add_to_cart_border">#FF4500</color>
+    <color name="lavender">#8692f7</color>
+    <color name="red">#c70000</color>
+    <color name="green">#00c700</color>"
+    <color name="gray">#727572</color>"
 </resources>

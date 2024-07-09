@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="20dp"
+    app:cardCornerRadius="16dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirm Delete"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:textColor="@color/red"
+            android:id="@+id/confirmDelete"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Are you sure want to delete this item ?"
+            android:textAlignment="center"
+            android:textStyle="normal"
+            android:id="@+id/text"
+            android:layout_below="@id/confirmDelete"
+            android:textSize="15dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text"
+            android:layout_centerHorizontal="true"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/black"
+                android:id="@+id/noDelete"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Yes"
+                android:backgroundTint="@color/red"
+                android:layout_toEndOf="@+id/noDelete"
+                android:id="@+id/yesDelete"
+                />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

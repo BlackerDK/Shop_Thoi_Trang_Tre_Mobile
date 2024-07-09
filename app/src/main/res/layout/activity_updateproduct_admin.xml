@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    tools:context=".activity.activity_updateproduct_admin">
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            >
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
+                app:cardCornerRadius="30dp"
+                app:cardElevation="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Update Product"
+                        android:textAlignment="center"
+                        android:textColor="@color/lavender"
+                        android:textSize="30sp" />
+
+                    <ImageView
+                        android:id="@+id/updateImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="299dp"
+                        android:layout_marginTop="10dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/uploadimage" />
+
+       <!--             <EditText
+                        android:id="@+id/updateProductName"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/lavender_border"
+                        android:hint="Product Name"
+                        android:padding="16dp"
+                        android:textColor="@color/lavender"
+                        android:textSize="16sp" />-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:hint="Product Name"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/lavender"
+                            android:id="@+id/updateProductName"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+ <!--                   <EditText
+                        android:id="@+id/updateProductCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/lavender_border"
+                        android:hint="Product Code"
+                        android:padding="16dp"
+                        android:textColor="@color/lavender"
+                        android:textSize="16sp" />-->
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:hint="Product Code"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/lavender"
+                            android:id="@+id/updateProductCode"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+<!--                    <EditText
+                        android:id="@+id/updateProductPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/lavender_border"
+                        android:hint="Product Price"
+                        android:padding="16dp"
+                        android:textColor="@color/lavender"
+                        android:textSize="16sp" />-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:hint="Product Price"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/lavender"
+                            android:inputType="number"
+                            android:id="@+id/updateProductPrice"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:hint="Product Quantity"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/lavender"
+                            android:inputType="number"
+                            android:id="@+id/updateProductQuantity"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+<!--                    <EditText
+                        android:id="@+id/updateProductDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/lavender_border"
+                        android:hint="Product Description"
+                        android:padding="16dp"
+                        android:textColor="@color/lavender"
+                        android:textSize="16sp" />-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:hint="Product Description"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/lavender"
+                            android:id="@+id/updateProductDescription"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+<!--                    <EditText
+                        android:id="@+id/updateProductCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/lavender_border"
+                        android:hint="Product Category"
+                        android:padding="16dp"
+                        android:textColor="@color/lavender"
+                        android:textSize="16sp" />-->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:hint="Product Category"
+                        >
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/lavender"
+                            android:id="@+id/updateProductCategory"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:hint="Product Brand"
+                        >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/lavender"
+                        android:inputType="number"
+                        android:id="@+id/updateBrand"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+                    <Button
+                        android:id="@+id/updateButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Save"
+                        android:textSize="18dp" />
+
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

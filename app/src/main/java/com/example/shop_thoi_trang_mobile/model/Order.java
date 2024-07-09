@@ -1,17 +1,19 @@
 package com.example.shop_thoi_trang_mobile.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.List;
 
 public class Order {
     private int orderId;
-    private Date orderDate;
+    private String orderDate;
     private int userId;
     private BigDecimal orderTotalAmount;
     private String orderStatus;
 
-    public Order(int orderId, Date orderDate, int userId, BigDecimal orderTotalAmount, String orderStatus) {
+    public Order(int orderId, String orderDate, int userId, BigDecimal orderTotalAmount, String orderStatus) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.userId = userId;
@@ -27,11 +29,11 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 
