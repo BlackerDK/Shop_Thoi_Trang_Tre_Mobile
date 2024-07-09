@@ -13,11 +13,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shop_thoi_trang_mobile.R;
+import com.example.shop_thoi_trang_mobile.model.CartItem;
+import com.example.shop_thoi_trang_mobile.model.CartManager;
 import com.example.shop_thoi_trang_mobile.model.Product;
 import com.example.shop_thoi_trang_mobile.model.ProductResponse;
 import com.example.shop_thoi_trang_mobile.networking.ProductService;
@@ -25,7 +24,6 @@ import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -34,11 +32,11 @@ import retrofit2.Response;
 
 public class ProductDetailsActivity extends AppCompatActivity {
     private ImageView productImage;
-    private TextView productName;
-    private TextView productCategory;
-    private TextView productBrand;
-    private TextView productPrice;
+    private TextView productName, productCategory, productBrand, productPrice,productDes;
+
     private ProductService productService;
+    private Button addToCartButton;
+    private CartManager cartManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +48,35 @@ public class ProductDetailsActivity extends AppCompatActivity {
         productCategory = findViewById(R.id.product_category);
         productBrand = findViewById(R.id.product_brand);
         productPrice = findViewById(R.id.product_price);
+        productDes = findViewById(R.id.product_des);
+        addToCartButton = findViewById(R.id.btnAddToCart);
+
+        // Bottom navigation
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = null;
+                if (item.getItemId() == R.id.nav_home) {
+                    // Chuyển sang activity Home (ví dụ)
+                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
+                } else if (item.getItemId() == R.id.nav_cart) {
+                    // Chuyển sang activity Category (ví dụ)
+                    intent = new Intent(ProductDetailsActivity.this, CartActivity.class);
+                } else if (item.getItemId() == R.id.nav_noti) {
+                    // Chuyển sang activity Cart (ví dụ)
+                    intent = new Intent(ProductDetailsActivity.this, HomeActivity.class);
+                } else if (item.getItemId() == R.id.nav_profile) {
+                    // Chuyển sang activity Profile (ví dụ)
+                    intent = new Intent(ProductDetailsActivity.this, UserProfileActivity.class);
+                }
+                if (intent != null) {
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         Intent intent = getIntent();
         int productId = intent.getIntExtra("productId", -1);
@@ -58,6 +85,28 @@ public class ProductDetailsActivity extends AppCompatActivity {
             productService = RetrofitClient.getRetrofitInstance().create(ProductService.class);
             fetchProductDetails(productId);
         }
+
+        addToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String prodName = productName.getText().toString();
+                int quantity = 1;
+                double price = Double.parseDouble(productPrice.getText().toString().substring(1));
+                String image = productImage.toString();
+
+                CartItem cartItem = new CartItem(
+                        productId,
+                        prodName,
+                        quantity,
+                        price,
+                        image
+                );
+                cartManager = CartManager.getInstance();
+                cartManager.addItemToCart(cartItem);
+                Toast.makeText(ProductDetailsActivity.this, "Added to cart", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void fetchProductDetails(int productId) {
@@ -75,11 +124,13 @@ public class ProductDetailsActivity extends AppCompatActivity {
                             productCategory.setText("Category: " + product.getProductCategory());
                             productBrand.setText("Brand: " + product.getProductBrand());
                             productPrice.setText("$" + product.getProductPrice());
+                            productDes.setText(""+product.getProductDescription());
                             break;
                         }
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
                 t.printStackTrace();
