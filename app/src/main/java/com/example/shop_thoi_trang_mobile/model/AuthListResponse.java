@@ -1,21 +1,17 @@
 package com.example.shop_thoi_trang_mobile.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ProductResponse {
-    private ArrayList<Product> result;
+public class AuthListResponse {
+    private ArrayList<User> result;
     private boolean isSuccess;
     private String message;
-
-    public ArrayList<Product> getResult() {
+    public ArrayList<User> getResult() {
         return result;
     }
-
-    public void setResult(ArrayList<Product> result) {
+    public void setResult(ArrayList<User> result) {
         this.result = result;
     }
-
     public boolean isSuccess() {
         return isSuccess;
     }

@@ -22,6 +22,7 @@ import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
 
 import java.io.Console;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -81,6 +82,7 @@ public class SignInActivity  extends AppCompatActivity implements View.OnClickLi
                         editor.putString("userPhone", user.getUsersPhone());
                         editor.putString("userAddress", user.getUsersAddress());
                         editor.putString("userPassword", user.getUsersPassword());
+                        editor.putInt("role", user.getRoleId());
                         editor.apply();
                         Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                         startActivity(intent);

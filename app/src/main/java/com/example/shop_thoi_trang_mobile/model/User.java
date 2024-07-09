@@ -32,4 +32,8 @@ public class User {
     public String getUsersPassword() {
         return usersPassword;
     }
+
+    public int getRoleId() {
+        return roleId;
+    }
 }

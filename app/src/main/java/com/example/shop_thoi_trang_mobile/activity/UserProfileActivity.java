@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -17,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class UserProfileActivity extends AppCompatActivity {
     private TextView txtUserName, txtId, txtEmail, txtAddress, txtPhone;
     private Button btnEditProfile, btnLogout;
+    private ImageView imgChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,7 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("userId", 0);
-
+        int roleId = sharedPreferences.getInt("role", 0);
         String userName = sharedPreferences.getString("userName", null);
         String userEmail = sharedPreferences.getString("userEmail", null);
         String userPhone = sharedPreferences.getString("userPhone", null);
@@ -38,6 +40,7 @@ public class UserProfileActivity extends AppCompatActivity {
         txtPhone = findViewById(R.id.txt_phone);
         btnLogout = findViewById(R.id.btn_logout);
         btnEditProfile = findViewById(R.id.btn_edit_profile);
+        imgChat = findViewById(R.id.chat);
 
         if (userName != null && userEmail != null) {
             txtUserName.setText("Username : " + userName);
@@ -87,6 +90,17 @@ public class UserProfileActivity extends AppCompatActivity {
 
         btnEditProfile.setOnClickListener(v -> {
             Intent intent = new Intent(UserProfileActivity.this, UserEditProfileActivity.class);
+            startActivity(intent);
+        });
+
+        imgChat.setOnClickListener(v -> {
+            Intent intent = null;
+            if (roleId == 3) {
+                intent = new Intent(UserProfileActivity.this, ChatBoxActivity.class);
+            }
+            else {
+                intent = new Intent(UserProfileActivity.this, ChatActivity.class);
+            }
             startActivity(intent);
         });
     }
