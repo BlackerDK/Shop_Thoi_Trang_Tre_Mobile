@@ -54,5 +54,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.VerifyOtpActivity"></activity>
+        <activity android:name=".activity.ChatBoxActivity"></activity>
+        <activity android:name=".activity.ChatActivity"></activity>
     </application>
 </manifest>

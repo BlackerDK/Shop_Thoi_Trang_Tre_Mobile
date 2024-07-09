@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.shop_thoi_trang_mobile.R;
+import com.example.shop_thoi_trang_mobile.helper.FirebaseData;
 import com.example.shop_thoi_trang_mobile.model.AuthResponse;
 import com.example.shop_thoi_trang_mobile.model.User;
 import com.example.shop_thoi_trang_mobile.model.UserRequest;
@@ -34,7 +35,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -44,7 +51,7 @@ import retrofit2.Response;
 public class VerifyOtpActivity extends AppCompatActivity {
     private EditText ipCode1, ipCode2, ipCode3, ipCode4, ipCode5, ipCode6;
     private AuthService authService;
-
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://otp-shop-thoi-trang-default-rtdb.firebaseio.com");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +66,17 @@ public class VerifyOtpActivity extends AppCompatActivity {
         ipCode4 = findViewById(R.id.ipCode4);
         ipCode5 = findViewById(R.id.ipCode5);
         ipCode6 = findViewById(R.id.ipCode6);
-
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         Button btnSubmitOTP = (Button) findViewById(R.id.btnSubmitOTP);
         if (receivedUserRequest != null) {
             setupOTPInput();
+            /*if(!FirebaseData.getData(this).isEmpty()){
+                Intent intentFirst = new Intent(VerifyOtpActivity.this, HomeActivity.class);
+                intentFirst.putExtra("email", FirebaseData.getData(this));
+                intentFirst.putExtra("name", FirebaseData.getName(this));
+                startActivity(intentFirst);
+                finish();
+            }*/
             btnSubmitOTP.setOnClickListener(v -> {
                 if (ipCode1.getText().toString().trim().isEmpty() || ipCode2.getText().toString().trim().isEmpty() || ipCode3.getText().toString().trim().isEmpty() || ipCode4.getText().toString().trim().isEmpty()
                         || ipCode5.getText().toString().trim().isEmpty() || ipCode6.getText().toString().trim().isEmpty())

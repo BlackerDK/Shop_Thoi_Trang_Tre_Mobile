@@ -1,5 +1,7 @@
 package com.example.shop_thoi_trang_mobile.model;
 
+import java.util.ArrayList;
+
 public class AuthResponse {
     private User result;
     private boolean isSuccess;

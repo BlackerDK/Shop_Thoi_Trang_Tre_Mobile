@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -31,6 +32,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView txtUserName, txtId, txtEmail, txtAddress, txtPhone, txt_total_order_paid, txt_total_order_value;
     private Button btnEditProfile, btnLogout;
     private LinearLayout orderHistory;
+    private ImageView imgChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,7 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("userId", 0);
-
+        int roleId = sharedPreferences.getInt("role", 0);
         String userName = sharedPreferences.getString("userName", null);
         String userEmail = sharedPreferences.getString("userEmail", null);
         String userPhone = sharedPreferences.getString("userPhone", null);
@@ -60,7 +62,17 @@ public class UserProfileActivity extends AppCompatActivity {
             Intent intent = new Intent(UserProfileActivity.this, OrdersActivity.class);
             startActivity(intent);
         });
-
+        imgChat = findViewById(R.id.chat);
+        imgChat.setOnClickListener(v -> {
+            Intent intent = null;
+            if (roleId == 3) {
+                intent = new Intent(UserProfileActivity.this, ChatBoxActivity.class);
+            }
+            else {
+                intent = new Intent(UserProfileActivity.this, ChatActivity.class);
+            }
+            startActivity(intent);
+        });
         if (userName != null && userEmail != null) {
             txtUserName.setText("Username : " + userName);
             txtId.setText("ID : " + userId);

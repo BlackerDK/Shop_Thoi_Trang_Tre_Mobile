@@ -1,5 +1,4 @@
 package com.example.shop_thoi_trang_mobile.activity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -84,6 +83,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     editor.putString("userPhone", user.getUsersPhone());
                     editor.putString("userAddress", user.getUsersAddress());
                     editor.putString("userPassword", user.getUsersPassword());
+                    editor.putInt("role", user.getRoleId());
                     editor.apply();
                     Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                     startActivity(intent);
