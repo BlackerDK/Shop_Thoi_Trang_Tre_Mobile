@@ -14,6 +14,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -25,9 +26,17 @@ import com.example.shop_thoi_trang_mobile.model.Product;
 import com.example.shop_thoi_trang_mobile.model.ProductResponse;
 import com.example.shop_thoi_trang_mobile.networking.ProductService;
 import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +48,8 @@ public class activity_updateproduct_admin extends AppCompatActivity {
     Button updateButton;
     EditText updateProductName, updateProductCode, updateProductPrice, updateProductDescription, updateProductCategory, updateBrand, updateProductQuantity;
     Uri imageUri;
+    Boolean isImageUpdated = false;
+    String imageURL;
     private ProductService productService;
 
     @Override
@@ -68,6 +79,7 @@ public class activity_updateproduct_admin extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         imageUri = result.getData().getData();
                         updateImage.setImageURI(imageUri);
+                        isImageUpdated = true;
                     } else {
                         Toast.makeText(this, "No image selected", Toast.LENGTH_SHORT).show();
                     }
@@ -83,6 +95,7 @@ public class activity_updateproduct_admin extends AppCompatActivity {
             updateProductCategory.setText(bundle.getString("Category"));
             updateBrand.setText(bundle.getString("Brand"));
             updateProductQuantity.setText(bundle.getString("Quantity"));
+            imageURL = bundle.getString("Image");
         };
         updateImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,21 +112,69 @@ public class activity_updateproduct_admin extends AppCompatActivity {
                 if (!checkInput()) {
                     return;
                 }
-                Product updateProduct = new Product(Integer.parseInt(bundle.getString("Id")),
-                        updateProductName.getText().toString(),
-                        updateProductCode.getText().toString(),
-                        updateProductCategory.getText().toString(),
-                        updateBrand.getText().toString(),
-                        BigDecimal.valueOf(Double.parseDouble(updateProductPrice.getText().toString())),
-                        Integer.parseInt(updateProductQuantity.getText().toString()),
-                        updateProductDescription.getText().toString(),
-                        bundle.getString("Image")
-                        );
-                UpdateProduct(updateProduct);
+                if (isImageUpdated) {
+                    Update(bundle);
+                }
+                else {
+                    Product updateProduct = new Product(
+                            Integer.parseInt(bundle.getString("Id")),
+                            updateProductName.getText().toString(),
+                            updateProductCode.getText().toString(),
+                            updateProductCategory.getText().toString(),
+                            updateBrand.getText().toString(),
+                            BigDecimal.valueOf(Double.parseDouble(updateProductPrice.getText().toString())),
+                            Integer.parseInt(updateProductQuantity.getText().toString()),
+                            updateProductDescription.getText().toString(),
+                            imageURL
+                    );
+                    UpdateProduct(updateProduct);
+                }
             }
         });
 
     }
+
+    private void Update(Bundle bundle) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CHINA);
+        Date date = new Date();
+        String fileName = formatter.format(date);
+        String filePath = "images/" + fileName;
+        StorageReference storage = FirebaseStorage.getInstance().getReference(filePath);
+        storage.putFile(imageUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+
+                                Product product = new Product(
+                                        Integer.parseInt(bundle.getString("Id")),
+                                        updateProductName.getText().toString(),
+                                        updateProductCode.getText().toString(),
+                                        updateProductCategory.getText().toString(),
+                                        updateBrand.getText().toString(),
+                                        BigDecimal.valueOf(Double.parseDouble(updateProductPrice.getText().toString())),
+                                        Integer.parseInt(updateProductQuantity.getText().toString()),
+                                        updateProductDescription.getText().toString(),
+                                        uri.toString()
+                                );
+                                UpdateProduct(product);
+                                Toast.makeText(activity_updateproduct_admin.this, "Product uploaded successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(activity_updateproduct_admin.this, "Failed to upload product", Toast.LENGTH_SHORT).show();
+                        Log.e("Error", e.getMessage());
+                    }
+                });
+
+    }
+
     private void UpdateProduct(Product product) {
         Call<ProductResponse> call = productService.updateProduct(product);
         Gson gson = new Gson();

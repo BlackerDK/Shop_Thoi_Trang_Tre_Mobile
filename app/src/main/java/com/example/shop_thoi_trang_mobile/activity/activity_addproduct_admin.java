@@ -3,6 +3,7 @@ package com.example.shop_thoi_trang_mobile.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -22,8 +24,16 @@ import com.example.shop_thoi_trang_mobile.model.Product;
 import com.example.shop_thoi_trang_mobile.model.ProductResponse;
 import com.example.shop_thoi_trang_mobile.networking.ProductService;
 import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,6 +47,7 @@ public class activity_addproduct_admin extends AppCompatActivity {
     String imageUrl;
     Uri imageUri;
     private ProductService productService;
+    StorageReference storage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,18 +96,49 @@ public class activity_addproduct_admin extends AppCompatActivity {
                 if (!checkInput()) {
                     return;
                 }
-                Product product = new Product(
-                        0,
-                        productName.getText().toString(),
-                        productCode.getText().toString(),
-                        productCategory.getText().toString(),
-                        productBrand.getText().toString(),
-                        BigDecimal.valueOf(Double.parseDouble(productPrice.getText().toString())),
-                        Integer.parseInt(productQuantity.getText().toString()),
-                        productDescription.getText().toString(),
-                        "https://i.pinimg.com/originals/cf/49/e8/cf49e8bf1626e2f4e02361ffdd5213d3.jpg"
-                );
-                UploadProduct(product);
+                if (imageUri == null) {
+                    Toast.makeText(activity_addproduct_admin.this, "Please upload an image", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.CHINA);
+                Date date = new Date();
+                String fileName = formatter.format(date);
+                String filePath = "images/" + fileName;
+                storage = FirebaseStorage.getInstance().getReference(filePath);
+                storage.putFile(imageUri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+
+                                        Product product = new Product(
+                                                0,
+                                                productName.getText().toString(),
+                                                productCode.getText().toString(),
+                                                productCategory.getText().toString(),
+                                                productBrand.getText().toString(),
+                                                BigDecimal.valueOf(Double.parseDouble(productPrice.getText().toString())),
+                                                Integer.parseInt(productQuantity.getText().toString()),
+                                                productDescription.getText().toString(),
+                                                uri.toString()
+                                        );
+                                        Log.d("Product", product.toString());
+                                        UploadProduct(product);
+                                        Toast.makeText(activity_addproduct_admin.this, "Product uploaded successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(activity_addproduct_admin.this, "Failed to upload product", Toast.LENGTH_SHORT).show();
+                                Log.e("Error", e.getMessage());
+                            }
+                        });
+
             }
 
             private void UploadProduct(Product product) {

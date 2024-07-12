@@ -1,8 +1,12 @@
 package com.example.shop_thoi_trang_mobile.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,9 +21,11 @@ import com.example.shop_thoi_trang_mobile.model.Notice;
 import com.example.shop_thoi_trang_mobile.model.ResponseBase;
 import com.example.shop_thoi_trang_mobile.networking.AdminBaseService;
 import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +37,8 @@ public class activity_notification extends AppCompatActivity {
     RecyclerView notificationRecycler;
     NotificationAdapter adapter;
     AdminBaseService notificationGetService;
+
+    int userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +51,37 @@ public class activity_notification extends AppCompatActivity {
         });
         notificationRecycler = findViewById(R.id.notificationRecycler);
         notificationGetService = RetrofitClient.getRetrofitInstance().create(AdminBaseService.class);
+        SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+        userId = sharedPreferences.getInt("userId", 0);
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_noti);
+        bottomNavigationView.setOnApplyWindowInsetsListener(null);
+        bottomNavigationView.setPadding(0, 0, 0, 0);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = null;
+                if (item.getItemId() == R.id.nav_home) {
+                    // Chuyển sang activity Home (ví dụ)
+                    intent = new Intent(activity_notification.this, HomeActivity.class);
+                } else if (item.getItemId() == R.id.nav_cart) {
+                    // Chuyển sang activity Category (ví dụ)
+                    intent = new Intent(activity_notification.this, CartActivity.class);
+                } else if (item.getItemId() == R.id.nav_noti) {
+                    // Chuyển sang activity Cart (ví dụ)
+                    intent = new Intent(activity_notification.this, activity_notification.class);
+                } else if (item.getItemId() == R.id.nav_profile) {
+                    // Chuyển sang activity Profile (ví dụ)
+                    intent = new Intent(activity_notification.this, UserProfileActivity.class);
+                }
+                if (intent != null) {
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
         notificationRecycler.setLayoutManager(gridLayoutManager);
         SpacingItemDecoration spacingItemDecoration = new SpacingItemDecoration(5);
@@ -65,7 +103,7 @@ public class activity_notification extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseBase<Notice>> call, Response<ResponseBase<Notice>> response) {
                 if(response.isSuccessful() && response.body() != null){
-                    adapter.setList(response.body().getResult());
+                    adapter.setList(response.body().getResult().stream().filter(s -> s.getUserId() == userId).collect(Collectors.toList()));
                 }
             }
 

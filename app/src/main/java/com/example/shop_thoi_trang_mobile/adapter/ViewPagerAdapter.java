@@ -28,16 +28,14 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
                 return new OrderFragment("Tab1", orderItems.stream().filter(order -> order.getOrderStatus().equals("0")).collect(Collectors.toList()));
             case 1:
                 return new OrderFragment("Tab2", orderItems);
-            case 2:
-                return new OrderFragment("Tab3", orderItems);
             default:
-                return new OrderFragment("Tab4", orderItems);
+                return new OrderFragment("Tab1", orderItems);
         }
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 2;
     }
     public void setOrderItems(List<Order> orderItems) {
         this.orderItems = orderItems;

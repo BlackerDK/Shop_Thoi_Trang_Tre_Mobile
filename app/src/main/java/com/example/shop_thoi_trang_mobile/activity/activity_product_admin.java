@@ -3,9 +3,11 @@ package com.example.shop_thoi_trang_mobile.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -22,6 +24,7 @@ import com.example.shop_thoi_trang_mobile.model.Product;
 import com.example.shop_thoi_trang_mobile.model.ProductResponse;
 import com.example.shop_thoi_trang_mobile.networking.ProductService;
 import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.math.BigDecimal;
@@ -56,9 +59,36 @@ public class activity_product_admin extends AppCompatActivity {
         fab = findViewById(R.id.fab);
         search = findViewById(R.id.search);
         search.clearFocus();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        bottomNavigationView.setOnApplyWindowInsetsListener(null);
+        bottomNavigationView.setPadding(0, 0, 0, 0);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = null;
+                if (item.getItemId() == R.id.nav_home) {
+                    // Chuyển sang activity Home (ví dụ)
+                    intent = new Intent(activity_product_admin.this, activity_product_admin.class);
+                } else if (item.getItemId() == R.id.nav_cart) {
+                    // Chuyển sang activity Category (ví dụ)
+                    intent = new Intent(activity_product_admin.this, activity_listorder_admin.class);
+                } else if (item.getItemId() == R.id.nav_noti) {
+                    // Chuyển sang activity Cart (ví dụ)
+                    intent = new Intent(activity_product_admin.this, ChatActivity.class);
+                } else if (item.getItemId() == R.id.nav_profile) {
+                    // Chuyển sang activity Profile (ví dụ)
+                    intent = new Intent(activity_product_admin.this, UserProfileActivity.class);
+                }
+                if (intent != null) {
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         productService = RetrofitClient.getRetrofitInstance().create(ProductService.class);
-
 
         recyclerView = findViewById(R.id.recyclerViewProduct);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);

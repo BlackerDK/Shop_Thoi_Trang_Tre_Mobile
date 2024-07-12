@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import com.example.shop_thoi_trang_mobile.model.ChatMessage;
 import com.example.shop_thoi_trang_mobile.model.User;
 import com.example.shop_thoi_trang_mobile.networking.AuthService;
 import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -56,6 +58,36 @@ public class ChatActivity extends AppCompatActivity {
         chatLists = new ArrayList<>();
         chatAdapter = new ChatAdapter(this, R.layout.chat_item, chatLists);
         chatListView.setAdapter(chatAdapter);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.nav_cart);
+        bottomNavigationView.setOnApplyWindowInsetsListener(null);
+        bottomNavigationView.setPadding(0, 0, 0, 0);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Intent intent = null;
+                if (item.getItemId() == R.id.nav_home) {
+                    // Chuyển sang activity Home (ví dụ)
+                    intent = new Intent(ChatActivity.this, activity_product_admin.class);
+                } else if (item.getItemId() == R.id.nav_cart) {
+                    // Chuyển sang activity Category (ví dụ)
+                    intent = new Intent(ChatActivity.this, activity_listorder_admin.class);
+                } else if (item.getItemId() == R.id.nav_noti) {
+                    // Chuyển sang activity Cart (ví dụ)
+                    intent = new Intent(ChatActivity.this, ChatActivity.class);
+                } else if (item.getItemId() == R.id.nav_profile) {
+                    // Chuyển sang activity Profile (ví dụ)
+                    intent = new Intent(ChatActivity.this, UserProfileActivity.class);
+                }
+                if (intent != null) {
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("userId", 0);
         chatDatabaseReference = FirebaseDatabase.getInstance().getReference("users");
@@ -130,11 +162,11 @@ public class ChatActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        btnBack = findViewById(R.id.btnBack);
+/*        btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> {
             Intent intent = new Intent(ChatActivity.this, HomeActivity.class);
             startActivity(intent);
             finish();
-        });
+        });*/
     }
 }
