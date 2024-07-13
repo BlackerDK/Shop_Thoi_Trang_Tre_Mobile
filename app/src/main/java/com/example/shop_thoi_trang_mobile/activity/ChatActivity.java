@@ -2,6 +2,7 @@ package com.example.shop_thoi_trang_mobile.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -34,7 +35,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,13 +81,14 @@ public class ChatActivity extends AppCompatActivity {
                     intent = new Intent(ChatActivity.this, activity_listorder_admin.class);
                 } else if (item.getItemId() == R.id.nav_noti) {
                     // Chuyển sang activity Cart (ví dụ)
-                    intent = new Intent(ChatActivity.this, ChatActivity.class);
+                    //intent = new Intent(ChatActivity.this, ChatActivity.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
                     // Chuyển sang activity Profile (ví dụ)
                     intent = new Intent(ChatActivity.this, UserProfileActivity.class);
                 }
                 if (intent != null) {
                     startActivity(intent);
+                    finish();
                     return true;
                 }
                 return false;
@@ -106,7 +113,7 @@ public class ChatActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<AuthListResponse> call, Throwable t) {
-                Log.e("API_ERROR", "Error register", t);
+                Log.e("API_ERROR", "Error load users", t);
             }
         });
         chatDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -119,27 +126,25 @@ public class ChatActivity extends AppCompatActivity {
                     chatDatabaseReference.child(Integer.toString(id)).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            float timeLastMessage = 0;
                             for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                                 ChatMessage chatMessage = postSnapshot.getValue(ChatMessage.class);
-                                if (chatMessage.getTimestamp() > timeLastMessage) {
-                                    timeLastMessage = chatMessage.getTimestamp();
-                                    chatList.setLastMsg(chatMessage.getMessage());
+                                chatList.setLastMsg(chatMessage.getMessage());
+                                if(users != null){
+                                    for (User user : users) {
+                                        if (user.getUsersId() == id) {
+                                            chatList.setName(user.getUsersName());
+                                            break;
+                                        }
+                                    }
                                 }
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             // Handle database error
                         }
                     });
-                    for (User user : users) {
-                        if (user.getUsersId() == id) {
-                            chatList.setName(user.getUsersName());
-                            break;
-                        }
-                    }
+                    if(chatList.getName().isEmpty()) chatList.setName("Customer with ID "+ String.valueOf(id));
                     chatLists.add(chatList);
                 }
                 chatAdapter.notifyDataSetChanged();
