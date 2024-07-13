@@ -57,14 +57,13 @@ public class ChatBoxActivity extends AppCompatActivity {
             roomId = intent.getIntExtra("roomId", 0);
         }
         chatDatabaseReference = FirebaseDatabase.getInstance().getReference("users").child(Integer.toString(roomId));
+        if(role == 3){
+            btnBack.setVisibility(View.INVISIBLE);
+        }
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(role == 3) {
-                    startActivity(new Intent(ChatBoxActivity.this, HomeActivity.class));
-                }else{
-                    startActivity(new Intent(ChatBoxActivity.this, ChatActivity.class));
-                }
+                startActivity(new Intent(ChatBoxActivity.this, ChatActivity.class));
                 finish();
             }});
         sendButton.setOnClickListener(new View.OnClickListener() {

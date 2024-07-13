@@ -146,7 +146,7 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
                     intent = new Intent(CartActivity.this, HomeActivity.class);
                 } else if (item.getItemId() == R.id.nav_cart) {
                     // Chuyển sang activity Category (ví dụ)
-                    intent = new Intent(CartActivity.this, CartActivity.class);
+                    //intent = new Intent(CartActivity.this, CartActivity.class);
                 } else if (item.getItemId() == R.id.nav_noti) {
                     // Chuyển sang activity Cart (ví dụ)
                     intent = new Intent(CartActivity.this, HomeActivity.class);
@@ -156,6 +156,7 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
                 }
                 if (intent != null) {
                     startActivity(intent);
+                    finish();
                     return true;
                 }
                 return false;

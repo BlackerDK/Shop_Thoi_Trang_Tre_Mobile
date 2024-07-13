@@ -68,6 +68,7 @@ public class OrdersActivity extends AppCompatActivity {
                 }
                 if (intent != null) {
                     startActivity(intent);
+                    finish();
                     return true;
                 }
                 return false;

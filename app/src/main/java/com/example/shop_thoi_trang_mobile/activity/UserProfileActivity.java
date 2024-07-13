@@ -64,14 +64,8 @@ public class UserProfileActivity extends AppCompatActivity {
         });
         imgChat = findViewById(R.id.chat);
         imgChat.setOnClickListener(v -> {
-            Intent intent = null;
-            if (roleId == 3) {
-                intent = new Intent(UserProfileActivity.this, ChatBoxActivity.class);
-            }
-            else {
-                intent = new Intent(UserProfileActivity.this, ChatActivity.class);
-            }
-            startActivity(intent);
+            startActivity(new Intent(UserProfileActivity.this, ChatBoxActivity.class));
+            finish();
         });
         if (userName != null && userEmail != null) {
             txtUserName.setText("Username : " + userName);
@@ -89,19 +83,23 @@ public class UserProfileActivity extends AppCompatActivity {
                 Intent intent = null;
                 if (item.getItemId() == R.id.nav_home) {
                     // Chuyển sang activity Home (ví dụ)
-                    intent = new Intent(UserProfileActivity.this, HomeActivity.class);
+                    if(roleId == 3) intent = new Intent(UserProfileActivity.this, HomeActivity.class);
+                    else intent = new Intent(UserProfileActivity.this, activity_product_admin.class);
                 } else if (item.getItemId() == R.id.nav_cart) {
                     // Chuyển sang activity Category (ví dụ)
-                    intent = new Intent(UserProfileActivity.this, CartActivity.class);
+                    if(roleId == 3) intent = new Intent(UserProfileActivity.this, CartActivity.class);
+                    else intent = new Intent(UserProfileActivity.this, activity_listorder_admin.class);
                 } else if (item.getItemId() == R.id.nav_noti) {
                     // Chuyển sang activity Cart (ví dụ)
-                    intent = new Intent(UserProfileActivity.this, activity_notification.class);
+                    if(roleId == 3) intent = new Intent(UserProfileActivity.this, activity_notification.class);
+                    else intent = new Intent(UserProfileActivity.this, ChatActivity.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
                     // Chuyển sang activity Profile (ví dụ)
-                    intent = new Intent(UserProfileActivity.this, UserProfileActivity.class);
+
                 }
                 if (intent != null) {
                     startActivity(intent);
+                    finish();
                     return true;
                 }
                 return false;

@@ -80,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = null;
                 if (item.getItemId() == R.id.nav_home) {
                     // Chuyển sang activity Home (ví dụ)
-                    intent = new Intent(HomeActivity.this, HomeActivity.class);
+                    //intent = new Intent(HomeActivity.this, HomeActivity.class);
                 } else if (item.getItemId() == R.id.nav_cart) {
                     // Chuyển sang activity Category (ví dụ)
                     intent = new Intent(HomeActivity.this, CartActivity.class);
@@ -93,6 +93,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 if (intent != null) {
                     startActivity(intent);
+                    finish();
                     return true;
                 }
                 return false;

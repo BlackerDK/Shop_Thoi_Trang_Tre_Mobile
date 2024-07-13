@@ -72,6 +72,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
                 }
                 if (intent != null) {
                     startActivity(intent);
+                    finish();
                     return true;
                 }
                 return false;
