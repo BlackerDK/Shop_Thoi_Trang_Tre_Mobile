@@ -2,59 +2,72 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />       
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/ic_app_store"
+        android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:label="@string/app_name"
         android:theme="@style/Theme.Shop_Thoi_Trang_Mobile"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.activity_notification"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity_listorder_admin"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity_updateproduct_admin"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity_detailproduct_admin"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity_product_admin"
+            android:exported="false" />
+        <activity
+            android:name=".activity.activity_addproduct_admin"
+            android:exported="false" />
         <activity android:name=".activity.ProductDetailsActivity" />
         <activity
             android:name=".activity.SignUpActivity"
-            tools:ignore="Instantiatable">
-        </activity>
-        <activity android:name=".activity.SignInActivity"
+            tools:ignore="Instantiatable" />
+<!--        <activity
+            android:name=".activity.SignInActivity"
+            tools:ignore="Instantiatable" />-->
+        <activity
+            android:name=".activity.SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.HomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.MainActivity"></activity>
-        <activity android:name=".activity.CartActivity"></activity>
-        <activity android:name=".activity.OrdersActivity" android:exported="true"></activity>
+        <activity android:name=".activity.HomeActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.CartActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.OrdersActivity"
+            android:exported="false"/>
         <activity android:name=".activity.UserEditProfileActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:exported="false"/>
         <activity android:name=".activity.UserProfileActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".activity.VerifyOtpActivity"></activity>
-        <activity android:name=".activity.ChatBoxActivity"></activity>
-        <activity android:name=".activity.ChatActivity"></activity>
+            android:exported="false"/>
+        <activity android:name=".activity.VerifyOtpActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.ChatBoxActivity"
+            android:exported="false"/>
+        <activity android:name=".activity.ChatActivity"
+            android:exported="false"/>
     </application>
+
 </manifest>

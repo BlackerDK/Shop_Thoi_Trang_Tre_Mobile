@@ -95,7 +95,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     intent = new Intent(UserProfileActivity.this, CartActivity.class);
                 } else if (item.getItemId() == R.id.nav_noti) {
                     // Chuyển sang activity Cart (ví dụ)
-                    intent = new Intent(UserProfileActivity.this, HomeActivity.class);
+                    intent = new Intent(UserProfileActivity.this, activity_notification.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
                     // Chuyển sang activity Profile (ví dụ)
                     intent = new Intent(UserProfileActivity.this, UserProfileActivity.class);

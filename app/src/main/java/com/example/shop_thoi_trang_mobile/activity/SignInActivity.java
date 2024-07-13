@@ -85,8 +85,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     editor.putString("userPassword", user.getUsersPassword());
                     editor.putInt("role", user.getRoleId());
                     editor.apply();
-                    Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
-                    startActivity(intent);
+                    if (user.getRoleId() == 1 || user.getRoleId() == 2) {
+                        Intent intent = new Intent(SignInActivity.this, activity_product_admin.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                    else if (user.getRoleId() == 3) {
+                        Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     Log.e("API_ERROR", "Response unsuccessful");
                 }
