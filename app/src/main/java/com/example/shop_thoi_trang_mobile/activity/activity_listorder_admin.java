@@ -64,6 +64,7 @@ public class activity_listorder_admin extends AppCompatActivity {
                     intent = new Intent(activity_listorder_admin.this, activity_product_admin.class);
                 } else if (item.getItemId() == R.id.nav_cart) {
                     // Chuyển sang activity Category (ví dụ)
+                    //intent = new Intent(activity_listorder_admin.this, activity_listorder_admin.class);
                     intent = new Intent(activity_listorder_admin.this, activity_listorder_admin.class);
                 } else if (item.getItemId() == R.id.nav_noti) {
                     // Chuyển sang activity Cart (ví dụ)
@@ -74,6 +75,7 @@ public class activity_listorder_admin extends AppCompatActivity {
                 }
                 if (intent != null) {
                     startActivity(intent);
+                    finish();
                     return true;
                 }
                 return false;

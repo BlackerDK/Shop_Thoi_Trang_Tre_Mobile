@@ -70,13 +70,14 @@ public class activity_notification extends AppCompatActivity {
                     intent = new Intent(activity_notification.this, CartActivity.class);
                 } else if (item.getItemId() == R.id.nav_noti) {
                     // Chuyển sang activity Cart (ví dụ)
-                    intent = new Intent(activity_notification.this, activity_notification.class);
+                    //intent = new Intent(activity_notification.this, activity_notification.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
                     // Chuyển sang activity Profile (ví dụ)
                     intent = new Intent(activity_notification.this, UserProfileActivity.class);
                 }
                 if (intent != null) {
                     startActivity(intent);
+                    finish();
                     return true;
                 }
                 return false;
