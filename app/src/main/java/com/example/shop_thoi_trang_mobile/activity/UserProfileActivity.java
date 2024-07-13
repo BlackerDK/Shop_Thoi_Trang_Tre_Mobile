@@ -29,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserProfileActivity extends AppCompatActivity {
-    private TextView txtUserName, txtId, txtEmail, txtAddress, txtPhone, txt_total_order_paid, txt_total_order_value;
+    private TextView txtUserName, txtId, txtEmail, txtAddress, txtPhone ;
     private Button btnEditProfile, btnLogout;
     private LinearLayout orderHistory;
     private ImageView imgChat;
@@ -55,8 +55,6 @@ public class UserProfileActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btn_logout);
         btnEditProfile = findViewById(R.id.btn_edit_profile);
         orderHistory = findViewById(R.id.orderHistory);
-        txt_total_order_paid = findViewById(R.id.txt_total_order_paid);
-        txt_total_order_value = findViewById(R.id.txt_total_order_value);
 
         orderHistory.setOnClickListener(v -> {
             Intent intent = new Intent(UserProfileActivity.this, OrdersActivity.class);
@@ -126,8 +124,6 @@ public class UserProfileActivity extends AppCompatActivity {
         fetchOrdersFromDataSource(userId, new OrdersActivity.OrdersCallback() {
             @Override
             public void onSuccess(List<Order> orders) {
-                int totalOrderValue = orders.size();
-                txt_total_order_value.setText("Total Orders : " + totalOrderValue);
                 Log.d("API_RESPONSE", "Orders fetched successfully");
             }
 

@@ -66,7 +66,7 @@ public class ChatActivity extends AppCompatActivity {
         chatListView.setAdapter(chatAdapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.nav_cart);
+        bottomNavigationView.setSelectedItemId(R.id.nav_chat);
         bottomNavigationView.setOnApplyWindowInsetsListener(null);
         bottomNavigationView.setPadding(0, 0, 0, 0);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -79,7 +79,7 @@ public class ChatActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.nav_cart) {
                     // Chuyển sang activity Category (ví dụ)
                     intent = new Intent(ChatActivity.this, activity_listorder_admin.class);
-                } else if (item.getItemId() == R.id.nav_noti) {
+                } else if (item.getItemId() == R.id.nav_chat) {
                     // Chuyển sang activity Cart (ví dụ)
                     //intent = new Intent(ChatActivity.this, ChatActivity.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
