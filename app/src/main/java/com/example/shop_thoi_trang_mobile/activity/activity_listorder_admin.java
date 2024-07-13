@@ -66,7 +66,7 @@ public class activity_listorder_admin extends AppCompatActivity {
                     // Chuyển sang activity Category (ví dụ)
                     //intent = new Intent(activity_listorder_admin.this, activity_listorder_admin.class);
                     intent = new Intent(activity_listorder_admin.this, activity_listorder_admin.class);
-                } else if (item.getItemId() == R.id.nav_noti) {
+                } else if (item.getItemId() == R.id.nav_chat) {
                     // Chuyển sang activity Cart (ví dụ)
                     intent = new Intent(activity_listorder_admin.this, ChatActivity.class);
                 } else if (item.getItemId() == R.id.nav_profile) {

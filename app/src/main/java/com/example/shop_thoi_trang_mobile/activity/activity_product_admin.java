@@ -73,7 +73,7 @@ public class activity_product_admin extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.nav_cart) {
                     // Chuyển sang activity Category (ví dụ)
                     intent = new Intent(activity_product_admin.this, activity_listorder_admin.class);
-                } else if (item.getItemId() == R.id.nav_noti) {
+                } else if (item.getItemId() == R.id.nav_chat) {
                     // Chuyển sang activity Cart (ví dụ)
                     intent = new Intent(activity_product_admin.this, ChatActivity.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
