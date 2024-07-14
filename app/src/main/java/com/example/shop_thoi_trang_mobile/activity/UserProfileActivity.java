@@ -1,22 +1,29 @@
 package com.example.shop_thoi_trang_mobile.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shop_thoi_trang_mobile.R;
+import com.example.shop_thoi_trang_mobile.model.AuthResponse;
+import com.example.shop_thoi_trang_mobile.model.ChangePass;
 import com.example.shop_thoi_trang_mobile.model.Order;
 import com.example.shop_thoi_trang_mobile.model.OrderResponse;
+import com.example.shop_thoi_trang_mobile.networking.AuthService;
 import com.example.shop_thoi_trang_mobile.networking.OrderService;
 import com.example.shop_thoi_trang_mobile.networking.RetrofitClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,17 +36,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UserProfileActivity extends AppCompatActivity {
-    private TextView txtUserName, txtId, txtEmail, txtAddress, txtPhone ;
+    private TextView txtUserName, txtId, txtEmail, txtAddress, txtPhone, txtChange ;
     private Button btnEditProfile, btnLogout;
     private LinearLayout orderHistory;
     private ImageView imgChat;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
-        SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("userId", 0);
         int roleId = sharedPreferences.getInt("role", 0);
         String userName = sharedPreferences.getString("userName", null);
@@ -55,6 +63,14 @@ public class UserProfileActivity extends AppCompatActivity {
         btnLogout = findViewById(R.id.btn_logout);
         btnEditProfile = findViewById(R.id.btn_edit_profile);
         orderHistory = findViewById(R.id.orderHistory);
+        txtChange = findViewById(R.id.txt_change);
+
+        txtChange.setOnClickListener (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ChangePassPopup();
+            }
+        });
 
         orderHistory.setOnClickListener(v -> {
             Intent intent = new Intent(UserProfileActivity.this, OrdersActivity.class);
@@ -162,5 +178,50 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
     }
+    private void ChangePassPopup() {
+        final Dialog dialog = new Dialog(UserProfileActivity.this);
+        dialog.setContentView(R.layout.activity_changepass);
+        TextView buttonCancel = dialog.findViewById(R.id.buttonCancel);
+        TextView buttonChanges = dialog.findViewById(R.id.buttonChanges);
+        EditText txtOldPass = dialog.findViewById(R.id.edOldPass);
+        EditText txtNewPass = dialog.findViewById(R.id.edNewPass);
 
+        String txtMailUser = txtEmail.getText().toString();
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        buttonChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String txtOldPassUser = txtOldPass.getText().toString();
+                String txtNewPassUser = txtNewPass.getText().toString();
+
+                AuthService authService = RetrofitClient.getRetrofitInstance().create(AuthService.class);
+                ChangePass changePass = new ChangePass(txtMailUser, txtOldPassUser, txtNewPassUser);
+                Call<AuthResponse> call = authService.changePass(changePass);
+                call.enqueue(new Callback<AuthResponse>() {
+                    @Override
+                    public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                        if (response.body() != null && response.body().isSuccess()) {
+                            Toast.makeText(UserProfileActivity.this, "Password changed successfully", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(UserProfileActivity.this, "Failed to change password", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<AuthResponse> call, Throwable throwable) {
+                        Toast.makeText(UserProfileActivity.this, "Failed to change password", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 }

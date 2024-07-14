@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <EditText
+        android:id="@+id/edOldPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:hint="Current Pass"
+        android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/edNewPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:hint="New Pass"
+        android:inputType="textPassword" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Cancel"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/btn_secondary_text_gray"
+            app:cornerRadius="0dp" />
+
+        <Button
+            android:id="@+id/buttonChanges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Changes"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/green"
+            app:cornerRadius="0dp"/>
+    </LinearLayout>
+</LinearLayout>

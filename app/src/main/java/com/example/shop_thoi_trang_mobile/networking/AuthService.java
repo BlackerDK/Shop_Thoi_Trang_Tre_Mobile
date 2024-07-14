@@ -2,6 +2,7 @@ package com.example.shop_thoi_trang_mobile.networking;
 
 import com.example.shop_thoi_trang_mobile.model.AuthListResponse;
 import com.example.shop_thoi_trang_mobile.model.AuthResponse;
+import com.example.shop_thoi_trang_mobile.model.ChangePass;
 import com.example.shop_thoi_trang_mobile.model.ProductResponse;
 import com.example.shop_thoi_trang_mobile.model.UserRequest;
 import com.example.shop_thoi_trang_mobile.model.UserUpdateRequest;
@@ -22,5 +23,6 @@ public interface AuthService {
     Call<AuthResponse> register(@Body UserRequest userRequest);
     @PUT("Auth/UpdateUser")
     Call<AuthResponse> updateUser(@Body UserUpdateRequest userRequest);
-
+    @POST("Auth/ChangePass")
+    Call<AuthResponse> changePass(@Body ChangePass userChangePass);
 }
