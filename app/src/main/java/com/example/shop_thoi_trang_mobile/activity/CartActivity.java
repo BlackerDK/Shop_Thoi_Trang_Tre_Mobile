@@ -1,6 +1,7 @@
 package com.example.shop_thoi_trang_mobile.activity;
 
 import android.app.Activity;
+import android.app.Notification;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -149,7 +150,7 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
                     //intent = new Intent(CartActivity.this, CartActivity.class);
                 } else if (item.getItemId() == R.id.nav_noti) {
                     // Chuyển sang activity Cart (ví dụ)
-                    intent = new Intent(CartActivity.this, HomeActivity.class);
+                    intent = new Intent(CartActivity.this, activity_notification.class);
                 } else if (item.getItemId() == R.id.nav_profile) {
                     // Chuyển sang activity Profile (ví dụ)
                     intent = new Intent(CartActivity.this, UserProfileActivity.class);
@@ -203,7 +204,7 @@ public class CartActivity extends AppCompatActivity implements OnCartItemChangeL
 
     private void processCODPayment() {
         ArrayList<CartItemObjRequest> cartItemObjRequests = this.convertCartItemObject(cartManager.getCartItemList());
-        OrderRequest orderRequest = new OrderRequest(userId, total_amount, "COD", cartItemObjRequests);
+        OrderRequest orderRequest = new OrderRequest(userId, total_amount, "cod", cartItemObjRequests);
         fetchOrder(orderRequest);
         showDialog("Order success", "Your order has been placed successfully");
     }
