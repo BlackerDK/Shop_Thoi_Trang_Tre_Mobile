@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.shop_thoi_trang_mobile.OrderStatusUpdateListener;
 import com.example.shop_thoi_trang_mobile.R;
 import com.example.shop_thoi_trang_mobile.adapter.OrderAdminAdapter;
 import com.example.shop_thoi_trang_mobile.adapter.SpacingItemDecoration;
@@ -30,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderFragment extends Fragment {
+public class OrderFragment extends Fragment implements OrderStatusUpdateListener {
 
     private final String keyOrder;
     private final List<Order> orderItems;
@@ -55,12 +57,12 @@ public class OrderFragment extends Fragment {
         SpacingItemDecoration spacingItemDecoration = new SpacingItemDecoration(5);
         recyclerView.addItemDecoration(spacingItemDecoration);
         recyclerView.setHasFixedSize(true);
-        adapter = new OrderAdminAdapter(view.getContext(), (ArrayList<Order>) orderItems);
+        adapter = new OrderAdminAdapter(view.getContext(), (ArrayList<Order>) orderItems, this);
         recyclerView.setAdapter(adapter);
         LoadOrders();
         return view;
     }
-    private void LoadOrders() {
+    public void LoadOrders() {
         Call<ResponseBase<Order>> call = adminBaseService.getOrders();
         call.enqueue(new Callback<ResponseBase<Order>>() {
             @Override
@@ -68,6 +70,23 @@ public class OrderFragment extends Fragment {
                 if(response.isSuccessful() && response.body() != null){
                     adapter.setOrders((ArrayList<Order>) response.body().getResult());
                     Log.e("res", response.body().getMessage());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBase<Order>> call, Throwable throwable) {
+                Log.e("err", throwable.getMessage());
+            }
+        });
+    }
+    @Override
+    public void onUpdateOrderStatus(int orderId, String status) {
+        Call<ResponseBase<Order>> call = adminBaseService.updateOrderStatus(orderId, status);
+        call.enqueue(new Callback<ResponseBase<Order>>() {
+            @Override
+            public void onResponse(Call<ResponseBase<Order>> call, Response<ResponseBase<Order>> response) {
+                if(response.isSuccessful() && response.body() != null){
+                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
 

@@ -77,14 +77,21 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     User user = response.body().getResult();
                     SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("userId", user.getUsersId());
-                    editor.putString("userName", user.getUsersName());
-                    editor.putString("userEmail", user.getUsersEmail());
-                    editor.putString("userPhone", user.getUsersPhone());
-                    editor.putString("userAddress", user.getUsersAddress());
-                    editor.putString("userPassword", user.getUsersPassword());
-                    editor.putInt("role", user.getRoleId());
-                    editor.apply();
+                    if(user != null) {
+                        System.out.println(1);
+                        editor.putInt("userId", user.getUsersId());
+                        editor.putString("userName", user.getUsersName());
+                        editor.putString("userEmail", user.getUsersEmail());
+                        editor.putString("userPhone", user.getUsersPhone());
+                        editor.putString("userAddress", user.getUsersAddress());
+                        editor.putString("userPassword", user.getUsersPassword());
+                        editor.putInt("role", user.getRoleId());
+                        editor.apply();
+                    } else {
+                        System.out.println(2);
+                        // set error message
+
+                    }
                     if (user.getRoleId() == 1 || user.getRoleId() == 2) {
                         Intent intent = new Intent(SignInActivity.this, activity_product_admin.class);
                         startActivity(intent);
@@ -106,7 +113,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 Log.e("API_ERROR", "Error fetching products", t);
             }
         });
-        finish();
     }
 
     private void signUpForm() {

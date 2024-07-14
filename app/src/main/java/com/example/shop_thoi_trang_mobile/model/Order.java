@@ -12,13 +12,15 @@ public class Order {
     private int userId;
     private BigDecimal orderTotalAmount;
     private String orderStatus;
+    private String paymentType;
 
-    public Order(int orderId, String orderDate, int userId, BigDecimal orderTotalAmount, String orderStatus) {
+    public Order(int orderId, String orderDate, int userId, BigDecimal orderTotalAmount, String orderStatus, String paymentType) {
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.userId = userId;
         this.orderTotalAmount = orderTotalAmount;
         this.orderStatus = orderStatus;
+        this.paymentType = paymentType;
     }
 
     public int getOrderId() {
@@ -55,6 +57,14 @@ public class Order {
 
     public String getOrderStatus() {
         return orderStatus;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 
     public void setOrderStatus(String orderStatus) {
